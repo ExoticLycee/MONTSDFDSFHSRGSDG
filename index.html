@@ -611,47 +611,46 @@ const META = {
 };
 
 window.openModal = (type) => {
-  if ((type === 'kick' || type === 'ban' || type === 'shutdown' || type === 'broadcast' || type === 'banowner') && selectedSet.size === 0) {
-    toast('Pilih minimal 1 map dulu!','e'); return;
+  // Validasi
+  if (['kick','ban','shutdown','broadcast','banowner'].includes(type) && selectedSet.size === 0) {
+    toast('⚠️ Pilih minimal 1 map dulu!','e'); return;
   }
   if (type === 'banid') {
     const uid = document.getElementById('banIdInp').value.trim();
-    if (!uid || !/^\d+$/.test(uid)) { toast('Masukkan User ID yang valid (angka)!','e'); return; }
+    if (!uid || !/^\d+$/.test(uid)) { toast('⚠️ Masukkan User ID yang valid (angka)!','e'); return; }
   }
-  pendingType = type;
+
+  // Simpan type langsung ke tombol konfirmasi — tidak pakai global variable
+  const okBtn = document.getElementById('mOk');
+  okBtn.dataset.cmdtype = type;  // simpan di dataset, tidak akan hilang
+
   const m   = META[type];
   const msg = document.getElementById('msgArea').value.trim();
 
   let preText = '';
   if (type === 'shutall') {
-    const all = Object.values(mapsData);
-    preText = `Semua map (${all.length}):\n` + all.map(m => `• ${m.name||'?'} (${m.placeId||'?'})`).join('\n');
+    preText = 'Semua map (' + Object.keys(mapsData).length + '):\n' +
+      Object.values(mapsData).map(m => '• ' + (m.name||'?') + ' (' + (m.placeId||'?') + ')').join('\n');
   } else if (type === 'banid') {
-    const uid = document.getElementById('banIdInp').value.trim();
-    preText = `User ID: ${uid}`;
+    preText = 'User ID: ' + document.getElementById('banIdInp').value.trim();
   } else if (type === 'banowner') {
-    const owners = [...selectedSet].map(k => {
-      const mp = mapsData[k];
-      return `• ${mp?.name||'?'} → Owner ID: ${mp?.creatorId||'?'}`;
-    });
-    preText = owners.join('\n');
+    preText = [...selectedSet].map(k => '• ' + (mapsData[k]?.name||'?') + ' → Owner: ' + (mapsData[k]?.creatorId||'?')).join('\n');
   } else {
-    const targets = [...selectedSet].map(k => `• ${mapsData[k]?.name||k} (${mapsData[k]?.placeId||'?'})`);
-    preText = targets.join('\n') + (msg ? `\n\nPesan:\n"${msg}"` : '');
+    preText = [...selectedSet].map(k => '• ' + (mapsData[k]?.name||k) + ' (' + (mapsData[k]?.placeId||'?') + ')').join('\n');
+    if (msg) preText += '\n\nPesan:\n"' + msg + '"';
   }
 
-  document.getElementById('mTitle').innerHTML = `<span style="color:${m.color}">${m.label}?</span>`;
+  document.getElementById('mTitle').innerHTML = '<span style="color:' + m.color + '">' + m.label + '?</span>';
   document.getElementById('mBody').textContent = m.body;
   document.getElementById('mPre').textContent  = preText;
-  const ok = document.getElementById('mOk');
-  ok.textContent = m.label;
-  ok.style.background = type === 'broadcast' ? 'linear-gradient(135deg,var(--b),#2255cc)'
+  okBtn.textContent = m.label;
+  okBtn.style.background = type === 'broadcast' ? 'linear-gradient(135deg,var(--b),#2255cc)'
     : type === 'kick' ? 'linear-gradient(135deg,#aa8800,#886600)'
     : 'linear-gradient(135deg,var(--r),var(--r2))';
   document.getElementById('modal').classList.add('open');
 };
 
-window.closeModal = () => { document.getElementById('modal').classList.remove('open'); pendingType = null; };
+window.closeModal = () => { document.getElementById('modal').classList.remove('open'); };
 document.getElementById('modal').addEventListener('click', e => { if(e.target===document.getElementById('modal')) closeModal(); });
 
 // ============================================================
@@ -680,18 +679,34 @@ async function writeCmd(mKey, ct, msg, extra) {
 }
 
 window.execAction = async () => {
-  if (!pendingType) return;
+  // Baca cmdType dari dataset tombol — tidak pakai pendingType global yang rawan null
+  const okBtn  = document.getElementById('mOk');
+  const cmdType = okBtn.dataset.cmdtype;
+  if (!cmdType) { toast('❌ Error: tipe command tidak diketahui','e'); return; }
+
   closeModal();
 
-  const cmdType = pendingType;
-  const msg     = document.getElementById('msgArea').value.trim();
+  const msg = document.getElementById('msgArea').value.trim();
+  console.log('[WarpahAC] execAction:', cmdType, 'selected:', [...selectedSet]);
 
-  console.log('[WarpahAC] execAction called, cmdType:', cmdType, 'selected:', [...selectedSet]);
+  // Snapshot selectedSet sebelum deselAll
+  const selectedSnapshot = new Set(selectedSet);
+
+  async function writeCmd(mKey, ct, extra) {
+    const payload = { cmdType: ct, mapKey: mKey, message: msg, createdAt: Date.now(), done: false };
+    if (extra) Object.assign(payload, extra);
+    console.log('[WarpahAC] push:', JSON.stringify(payload));
+    try {
+      const r = await push(cmdsRef, payload);
+      console.log('[WarpahAC] OK key:', r.key);
+    } catch(e) {
+      console.error('[WarpahAC] push error:', e);
+      toast('❌ Firebase error: ' + e.message, 'e');
+    }
+  }
 
   if (cmdType === 'shutall') {
-    for (const mKey of Object.keys(mapsData)) {
-      await writeCmd(mKey, 'shutdown', msg, { placeId: mapsData[mKey]?.placeId||0 });
-    }
+    for (const mKey of Object.keys(mapsData)) await writeCmd(mKey, 'shutdown');
     addLog('shutall', Object.values(mapsData).map(m=>m.name||'?'), msg);
     toast('💥 Shutdown dikirim ke ' + Object.keys(mapsData).length + ' server!', 's');
     deselAll(); return;
@@ -699,33 +714,28 @@ window.execAction = async () => {
 
   if (cmdType === 'banid') {
     const uid = document.getElementById('banIdInp').value.trim();
-    for (const mKey of Object.keys(mapsData)) {
-      await writeCmd(mKey, 'banid', msg, { userId: uid, placeId: mapsData[mKey]?.placeId||0 });
-    }
+    for (const mKey of Object.keys(mapsData)) await writeCmd(mKey, 'banid', { userId: uid });
     addLog('banid', ['UserID: '+uid], msg);
     toast('🔨 Ban dikirim untuk User ID ' + uid, 's');
     document.getElementById('banIdInp').value = ''; return;
   }
 
   if (cmdType === 'banowner') {
-    for (const mKey of selectedSet) {
+    for (const mKey of selectedSnapshot) {
       const mp = mapsData[mKey];
       if (!mp?.creatorId) continue;
-      for (const allKey of Object.keys(mapsData)) {
-        await writeCmd(allKey, 'banid', msg, { userId: String(mp.creatorId), placeId: mapsData[allKey]?.placeId||0 });
-      }
+      for (const allKey of Object.keys(mapsData)) await writeCmd(allKey, 'banid', { userId: String(mp.creatorId) });
     }
-    addLog('banowner', [...selectedSet].map(k=>'Owner: '+(mapsData[k]?.creatorId||'?')), msg);
+    addLog('banowner', [...selectedSnapshot].map(k=>'Owner: '+(mapsData[k]?.creatorId||'?')), msg);
     toast('🚫 Ban owner terkirim!', 's');
     deselAll(); return;
   }
 
-  // kick / ban / shutdown / broadcast → map dipilih
-  for (const mKey of selectedSet) {
-    await writeCmd(mKey, cmdType, msg, { placeId: mapsData[mKey]?.placeId||0 });
-  }
-  addLog(cmdType, [...selectedSet].map(k=>mapsData[k]?.name||k), msg);
-  toast((META[cmdType]?.label || cmdType) + ' dikirim ke ' + selectedSet.size + ' map!', 's');
+  // kick / ban / shutdown / broadcast
+  if (selectedSnapshot.size === 0) { toast('⚠️ Tidak ada map yang dipilih!','e'); return; }
+  for (const mKey of selectedSnapshot) await writeCmd(mKey, cmdType);
+  addLog(cmdType, [...selectedSnapshot].map(k=>mapsData[k]?.name||k), msg);
+  toast((META[cmdType]?.label||cmdType) + ' dikirim ke ' + selectedSnapshot.size + ' map!', 's');
   deselAll();
 };
 
