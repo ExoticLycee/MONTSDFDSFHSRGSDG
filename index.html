@@ -657,6 +657,28 @@ document.getElementById('modal').addEventListener('click', e => { if(e.target===
 // ============================================================
 // EXEC — tulis ke Firebase, script Roblox akan baca
 // ============================================================
+// Helper tulis command ke Firebase — di luar execAction supaya bisa diakses
+async function writeCmd(mKey, ct, msg, extra) {
+  const payload = {
+    cmdType:   ct,
+    mapKey:    mKey,
+    message:   msg || '',
+    createdAt: Date.now(),
+    done:      false
+  };
+  if (extra) Object.assign(payload, extra);
+  console.log('[WarpahAC] Writing command:', JSON.stringify(payload));
+  try {
+    const result = await push(cmdsRef, payload);
+    console.log('[WarpahAC] Command written OK, key:', result.key);
+    return result;
+  } catch(e) {
+    console.error('[WarpahAC] push error:', e);
+    toast('❌ Firebase error: ' + e.message, 'e');
+    return null;
+  }
+}
+
 window.execAction = async () => {
   if (!pendingType) return;
   closeModal();
@@ -664,40 +686,46 @@ window.execAction = async () => {
   const cmdType = pendingType;
   const msg     = document.getElementById('msgArea').value.trim();
 
-  // Helper tulis command ke Firebase
-  async function writeCmd(mKey, ct, extra) {
-    const payload = { cmdType: ct, mapKey: mKey, message: msg, createdAt: Date.now(), done: false };
-    if (extra) Object.assign(payload, extra);
-    try { await push(cmdsRef, payload); }
-    catch(e) { console.error('push error:', e); toast('❌ Firebase error: ' + e.message, 'e'); }
-  }
+  console.log('[WarpahAC] execAction called, cmdType:', cmdType, 'selected:', [...selectedSet]);
 
   if (cmdType === 'shutall') {
-    for (const mKey of Object.keys(mapsData)) await writeCmd(mKey, 'shutdown', { placeId: mapsData[mKey]?.placeId||0 });
+    for (const mKey of Object.keys(mapsData)) {
+      await writeCmd(mKey, 'shutdown', msg, { placeId: mapsData[mKey]?.placeId||0 });
+    }
     addLog('shutall', Object.values(mapsData).map(m=>m.name||'?'), msg);
-    toast(`💥 Shutdown dikirim ke ${Object.keys(mapsData).length} server!`, 's');
+    toast('💥 Shutdown dikirim ke ' + Object.keys(mapsData).length + ' server!', 's');
     deselAll(); return;
   }
+
   if (cmdType === 'banid') {
     const uid = document.getElementById('banIdInp').value.trim();
-    for (const mKey of Object.keys(mapsData)) await writeCmd(mKey, 'banid', { userId: uid, placeId: mapsData[mKey]?.placeId||0 });
+    for (const mKey of Object.keys(mapsData)) {
+      await writeCmd(mKey, 'banid', msg, { userId: uid, placeId: mapsData[mKey]?.placeId||0 });
+    }
     addLog('banid', ['UserID: '+uid], msg);
-    toast(`🔨 Ban dikirim untuk User ID ${uid}`, 's');
+    toast('🔨 Ban dikirim untuk User ID ' + uid, 's');
     document.getElementById('banIdInp').value = ''; return;
   }
+
   if (cmdType === 'banowner') {
     for (const mKey of selectedSet) {
       const mp = mapsData[mKey];
       if (!mp?.creatorId) continue;
-      for (const allKey of Object.keys(mapsData)) await writeCmd(allKey, 'banid', { userId: String(mp.creatorId), placeId: mapsData[allKey]?.placeId||0 });
+      for (const allKey of Object.keys(mapsData)) {
+        await writeCmd(allKey, 'banid', msg, { userId: String(mp.creatorId), placeId: mapsData[allKey]?.placeId||0 });
+      }
     }
-    addLog('banowner', [...selectedSet].map(k=>`Owner: ${mapsData[k]?.creatorId||'?'}`), msg);
-    toast(`🚫 Ban owner terkirim!`, 's');
+    addLog('banowner', [...selectedSet].map(k=>'Owner: '+(mapsData[k]?.creatorId||'?')), msg);
+    toast('🚫 Ban owner terkirim!', 's');
     deselAll(); return;
   }
-  for (const mKey of selectedSet) await writeCmd(mKey, cmdType, { placeId: mapsData[mKey]?.placeId||0 });
+
+  // kick / ban / shutdown / broadcast → map dipilih
+  for (const mKey of selectedSet) {
+    await writeCmd(mKey, cmdType, msg, { placeId: mapsData[mKey]?.placeId||0 });
+  }
   addLog(cmdType, [...selectedSet].map(k=>mapsData[k]?.name||k), msg);
-  toast(`${META[cmdType].label} dikirim ke ${selectedSet.size} map!`, 's');
+  toast((META[cmdType]?.label || cmdType) + ' dikirim ke ' + selectedSet.size + ' map!', 's');
   deselAll();
 };
 
