@@ -661,83 +661,43 @@ window.execAction = async () => {
   if (!pendingType) return;
   closeModal();
 
-  const type = pendingType;
-  const msg  = document.getElementById('msgArea').value.trim();
+  const cmdType = pendingType;
+  const msg     = document.getElementById('msgArea').value.trim();
 
-  if (type === 'shutall') {
-    // Kirim command ke SEMUA map
-    for (const mapKey of Object.keys(mapsData)) {
-      await push(cmdsRef, {
-        type: 'shutdown',
-        mapKey,
-        placeId:   mapsData[mapKey]?.placeId || 0,
-        message:   msg,
-        createdAt: Date.now(),
-        done:      false
-      });
-    }
+  // Helper tulis command ke Firebase
+  async function writeCmd(mKey, ct, extra) {
+    const payload = { cmdType: ct, mapKey: mKey, message: msg, createdAt: Date.now(), done: false };
+    if (extra) Object.assign(payload, extra);
+    try { await push(cmdsRef, payload); }
+    catch(e) { console.error('push error:', e); toast('❌ Firebase error: ' + e.message, 'e'); }
+  }
+
+  if (cmdType === 'shutall') {
+    for (const mKey of Object.keys(mapsData)) await writeCmd(mKey, 'shutdown', { placeId: mapsData[mKey]?.placeId||0 });
     addLog('shutall', Object.values(mapsData).map(m=>m.name||'?'), msg);
     toast(`💥 Shutdown dikirim ke ${Object.keys(mapsData).length} server!`, 's');
-    deselAll();
-    return;
+    deselAll(); return;
   }
-
-  if (type === 'banid') {
+  if (cmdType === 'banid') {
     const uid = document.getElementById('banIdInp').value.trim();
-    // Kirim ban command ke SEMUA map (supaya banstore tertulis di semua)
-    for (const mapKey of Object.keys(mapsData)) {
-      await push(cmdsRef, {
-        type:      'banid',
-        mapKey,
-        userId:    uid,
-        placeId:   mapsData[mapKey]?.placeId || 0,
-        message:   msg,
-        createdAt: Date.now(),
-        done:      false
-      });
-    }
-    addLog('banid', ['UserID: ' + uid], msg);
+    for (const mKey of Object.keys(mapsData)) await writeCmd(mKey, 'banid', { userId: uid, placeId: mapsData[mKey]?.placeId||0 });
+    addLog('banid', ['UserID: '+uid], msg);
     toast(`🔨 Ban dikirim untuk User ID ${uid}`, 's');
-    document.getElementById('banIdInp').value = '';
-    return;
+    document.getElementById('banIdInp').value = ''; return;
   }
-
-  if (type === 'banowner') {
-    for (const mapKey of selectedSet) {
-      const mp = mapsData[mapKey];
+  if (cmdType === 'banowner') {
+    for (const mKey of selectedSet) {
+      const mp = mapsData[mKey];
       if (!mp?.creatorId) continue;
-      for (const allKey of Object.keys(mapsData)) {
-        await push(cmdsRef, {
-          type:      'banid',
-          mapKey:    allKey,
-          userId:    String(mp.creatorId),
-          placeId:   mapsData[allKey]?.placeId || 0,
-          message:   msg,
-          createdAt: Date.now(),
-          done:      false
-        });
-      }
+      for (const allKey of Object.keys(mapsData)) await writeCmd(allKey, 'banid', { userId: String(mp.creatorId), placeId: mapsData[allKey]?.placeId||0 });
     }
     addLog('banowner', [...selectedSet].map(k=>`Owner: ${mapsData[k]?.creatorId||'?'}`), msg);
     toast(`🚫 Ban owner terkirim!`, 's');
-    deselAll();
-    return;
+    deselAll(); return;
   }
-
-  // Kick / Ban / Shutdown / Broadcast → ke map yang dipilih
-  for (const mapKey of selectedSet) {
-    const mp = mapsData[mapKey];
-    await push(cmdsRef, {
-      type,
-      mapKey,          // ← key Firebase map, script akan filter ini
-      placeId: mp?.placeId || 0,
-      message: msg,
-      createdAt: Date.now(),
-      done: false
-    });
-  }
-  addLog(type, [...selectedSet].map(k=>mapsData[k]?.name||k), msg);
-  toast(`${META[type].label} dikirim ke ${selectedSet.size} map!`, 's');
+  for (const mKey of selectedSet) await writeCmd(mKey, cmdType, { placeId: mapsData[mKey]?.placeId||0 });
+  addLog(cmdType, [...selectedSet].map(k=>mapsData[k]?.name||k), msg);
+  toast(`${META[cmdType].label} dikirim ke ${selectedSet.size} map!`, 's');
   deselAll();
 };
 
