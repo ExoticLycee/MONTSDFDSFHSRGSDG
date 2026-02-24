@@ -3,243 +3,239 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WarpahExploits — Control Panel</title>
+<title>WarpahExploits — AC Panel</title>
 <link rel="icon" href="https://res.cloudinary.com/dsjctfzj1/image/upload/v1760351559/IMG-20251007-WA0626_dv8s8r.jpg">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --g:#00ff88;--g2:#00cc66;--r:#ff3c3c;--r2:#cc2020;
-  --y:#ffcc00;--b:#3c8fff;
-  --bg:#040908;--bg2:#070f0a;
-  --card:rgba(0,255,136,.04);--card2:rgba(0,0,0,.25);
-  --border:rgba(0,255,136,.12);--border2:rgba(0,255,136,.06);
+  --g:#00ff88;--g2:#00cc66;--r:#ff3c3c;--r2:#cc1111;
+  --y:#ffcc00;--b:#3c8fff;--o:#ff7733;
+  --bg:#040908;--card:rgba(0,255,136,.04);--border:rgba(0,255,136,.1);
   --head:'Orbitron',monospace;--mono:'JetBrains Mono',monospace;--body:'DM Sans',sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
 body{font-family:var(--body);background:var(--bg);color:#dff0e8;min-height:100vh;overflow-x:hidden;}
 body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(ellipse 100% 50% at 50% -10%,rgba(0,255,136,.06) 0%,transparent 70%),
-             radial-gradient(ellipse 50% 60% at 100% 100%,rgba(0,180,80,.03) 0%,transparent 60%);}
+  background:radial-gradient(ellipse 100% 50% at 50% -10%,rgba(0,255,136,.055) 0%,transparent 70%);}
 .grid{position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:linear-gradient(rgba(0,255,136,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,.02) 1px,transparent 1px);
   background-size:48px 48px;animation:gd 25s linear infinite;}
 @keyframes gd{0%{transform:translateY(0)}100%{transform:translateY(48px)}}
 .scan{position:fixed;top:0;left:0;width:100%;height:2px;z-index:9999;pointer-events:none;
-  background:linear-gradient(90deg,transparent,var(--g),transparent);
-  animation:sc 6s linear infinite;opacity:.25;}
+  background:linear-gradient(90deg,transparent,var(--g),transparent);animation:sc 6s linear infinite;opacity:.2;}
 @keyframes sc{0%{top:0}100%{top:100vh}}
 
-/* ===== LOGIN ===== */
+/* LOGIN */
 #loginScreen{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;
   background:radial-gradient(ellipse at center,#071209 0%,var(--bg) 100%);}
-.lb{width:100%;max-width:400px;padding:44px 36px;
+.lb{width:100%;max-width:390px;padding:44px 36px;
   background:rgba(0,255,136,.035);border:1px solid rgba(0,255,136,.18);border-radius:24px;
-  box-shadow:0 0 80px rgba(0,255,136,.05),inset 0 1px 0 rgba(0,255,136,.08);
-  animation:fadeUp .5s ease;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.lb-logo{width:60px;height:60px;border-radius:14px;object-fit:cover;display:block;margin:0 auto 18px;
-  box-shadow:0 0 28px rgba(0,255,136,.25);}
-.lb-title{font-family:var(--head);font-size:20px;color:var(--g);text-align:center;letter-spacing:2px;
-  text-shadow:0 0 18px rgba(0,255,136,.4);}
-.lb-sub{font-size:11px;color:rgba(0,255,136,.4);text-align:center;letter-spacing:1.5px;margin-bottom:32px;margin-top:4px;}
+  box-shadow:0 0 80px rgba(0,255,136,.05),inset 0 1px 0 rgba(0,255,136,.08);animation:fu .5s ease;}
+@keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.lb-logo{width:58px;height:58px;border-radius:14px;object-fit:cover;display:block;margin:0 auto 16px;box-shadow:0 0 28px rgba(0,255,136,.25);}
+.lb-title{font-family:var(--head);font-size:19px;color:var(--g);text-align:center;letter-spacing:2px;text-shadow:0 0 16px rgba(0,255,136,.4);}
+.lb-sub{font-size:11px;color:rgba(0,255,136,.4);text-align:center;letter-spacing:1.5px;margin-bottom:30px;margin-top:3px;}
 .lb-lbl{font-size:10px;font-weight:700;color:rgba(0,255,136,.55);letter-spacing:2px;margin-bottom:7px;display:block;}
 .lb-wrap{position:relative;margin-bottom:6px;}
-.lb-inp{width:100%;padding:13px 46px 13px 16px;
-  background:rgba(0,0,0,.3);border:1px solid rgba(0,255,136,.18);border-radius:11px;
-  color:#fff;font-family:var(--mono);font-size:14px;letter-spacing:3px;outline:none;transition:all .3s;}
-.lb-inp:focus{border-color:var(--g);box-shadow:0 0 18px rgba(0,255,136,.12);background:rgba(0,255,136,.06);}
+.lb-inp{width:100%;padding:13px 46px 13px 16px;background:rgba(0,0,0,.3);border:1px solid rgba(0,255,136,.18);
+  border-radius:11px;color:#fff;font-family:var(--mono);font-size:14px;letter-spacing:3px;outline:none;transition:all .3s;}
+.lb-inp:focus{border-color:var(--g);box-shadow:0 0 16px rgba(0,255,136,.12);background:rgba(0,255,136,.06);}
 .lb-inp::placeholder{letter-spacing:1px;color:rgba(255,255,255,.18);}
-.eye{position:absolute;right:13px;top:50%;transform:translateY(-50%);background:none;border:none;
-  cursor:pointer;color:rgba(0,255,136,.35);transition:color .2s;}
+.eye{position:absolute;right:13px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:rgba(0,255,136,.35);transition:color .2s;}
 .eye:hover{color:var(--g);}
-.dots{display:flex;gap:5px;justify-content:center;margin:10px 0 20px;}
-.dot{width:7px;height:7px;border-radius:50%;background:rgba(0,255,136,.12);
-  border:1px solid rgba(0,255,136,.25);transition:all .2s;}
+.dots{display:flex;gap:5px;justify-content:center;margin:9px 0 18px;}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(0,255,136,.12);border:1px solid rgba(0,255,136,.25);transition:all .2s;}
 .dot.on{background:var(--g);box-shadow:0 0 7px var(--g);}
-.lb-err{font-size:12px;color:var(--r);min-height:17px;text-align:center;margin-bottom:14px;}
+.lb-err{font-size:12px;color:var(--r);min-height:16px;text-align:center;margin-bottom:12px;}
 .lb-btn{width:100%;padding:14px;border:none;border-radius:11px;cursor:pointer;
   background:linear-gradient(135deg,var(--g),var(--g2));color:var(--bg);
-  font-family:var(--head);font-size:12px;font-weight:700;letter-spacing:2px;
-  box-shadow:0 0 22px rgba(0,255,136,.35);transition:all .3s;}
-.lb-btn:hover{transform:translateY(-2px);box-shadow:0 0 36px rgba(0,255,136,.55);}
+  font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:2px;
+  box-shadow:0 0 20px rgba(0,255,136,.3);transition:all .3s;}
+.lb-btn:hover{transform:translateY(-2px);box-shadow:0 0 34px rgba(0,255,136,.5);}
 .lb-btn:disabled{opacity:.45;transform:none;cursor:not-allowed;}
-.lb-info{font-size:11px;color:rgba(255,255,255,.25);text-align:center;margin-top:14px;}
+.lb-info{font-size:11px;color:rgba(255,255,255,.22);text-align:center;margin-top:12px;}
 
-/* ===== DASHBOARD ===== */
+/* DASHBOARD */
 #dash{position:relative;z-index:1;min-height:100vh;display:none;}
 
 /* TOPBAR */
-.topbar{position:sticky;top:0;z-index:100;
-  background:rgba(4,9,8,.92);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);height:60px;
-  display:flex;align-items:center;padding:0 20px;gap:14px;}
-.topbar-logo{width:34px;height:34px;border-radius:9px;object-fit:cover;
-  box-shadow:0 0 12px rgba(0,255,136,.25);}
-.topbar-name{font-family:var(--head);font-size:15px;color:var(--g);letter-spacing:1.5px;
-  text-shadow:0 0 12px rgba(0,255,136,.35);}
-.topbar-sep{flex:1;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(4,9,8,.93);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);height:58px;display:flex;align-items:center;padding:0 20px;gap:14px;}
+.t-logo{width:32px;height:32px;border-radius:9px;object-fit:cover;box-shadow:0 0 12px rgba(0,255,136,.25);}
+.t-name{font-family:var(--head);font-size:14px;color:var(--g);letter-spacing:1.5px;text-shadow:0 0 12px rgba(0,255,136,.3);}
+.t-sep{flex:1;}
 .pill{display:flex;align-items:center;gap:6px;padding:5px 13px;
-  background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.12);border-radius:100px;
-  font-size:10px;font-weight:700;letter-spacing:1px;}
+  background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.12);border-radius:100px;font-size:10px;font-weight:700;letter-spacing:1px;}
 .pdot{width:6px;height:6px;border-radius:50%;background:var(--r);transition:all .3s;}
 .pdot.on{background:var(--g);box-shadow:0 0 7px var(--g);animation:pp 2s infinite;}
-@keyframes pp{0%,100%{box-shadow:0 0 5px var(--g)}50%{box-shadow:0 0 14px var(--g)}}
+@keyframes pp{0%,100%{box-shadow:0 0 5px var(--g)}50%{box-shadow:0 0 13px var(--g)}}
 .out-btn{padding:5px 13px;border-radius:100px;border:1px solid rgba(255,60,60,.2);
-  background:transparent;color:rgba(255,100,100,.6);font-size:10px;font-weight:700;
-  cursor:pointer;transition:all .3s;letter-spacing:1px;}
+  background:transparent;color:rgba(255,100,100,.6);font-size:10px;font-weight:700;cursor:pointer;transition:all .3s;letter-spacing:1px;}
 .out-btn:hover{background:rgba(255,60,60,.08);color:var(--r);}
 
 /* CONTENT */
-.wrap{max-width:1360px;margin:0 auto;padding:22px 18px;}
+.wrap{max-width:1400px;margin:0 auto;padding:20px 18px;}
 
 /* STATS */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px;}
-@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr);}}
-.sc{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:18px 20px;transition:all .3s;}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:11px;margin-bottom:20px;}
+@media(max-width:800px){.stats{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:500px){.stats{grid-template-columns:repeat(2,1fr);}}
+.sc{background:var(--card);border:1px solid rgba(0,255,136,.07);border-radius:15px;padding:16px 18px;transition:all .3s;}
 .sc:hover{border-color:var(--border);background:rgba(0,255,136,.06);}
-.sc-icon{font-size:20px;margin-bottom:8px;}
-.sc-val{font-family:var(--head);font-size:26px;color:var(--g);line-height:1;text-shadow:0 0 12px rgba(0,255,136,.25);}
-.sc-lbl{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:1px;margin-top:3px;}
+.sc-ico{font-size:18px;margin-bottom:7px;}
+.sc-val{font-family:var(--head);font-size:24px;color:var(--g);line-height:1;text-shadow:0 0 12px rgba(0,255,136,.2);}
+.sc-lbl{font-size:10px;color:rgba(255,255,255,.28);letter-spacing:1px;margin-top:3px;}
 
-/* LAYOUT */
-.layout{display:grid;grid-template-columns:1fr 360px;gap:18px;}
-@media(max-width:1050px){.layout{grid-template-columns:1fr;}}
+/* MAIN LAYOUT */
+.layout{display:grid;grid-template-columns:1fr 380px;gap:16px;}
+@media(max-width:1080px){.layout{grid-template-columns:1fr;}}
 
 /* CARD */
-.card{background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:22px;}
-.card+.card{margin-top:16px;}
-.ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
-.ct{font-family:var(--head);font-size:12px;color:var(--g);letter-spacing:1.5px;}
-.cs{font-size:11px;color:rgba(255,255,255,.28);margin-top:2px;}
+.card{background:var(--card);border:1px solid rgba(0,255,136,.08);border-radius:17px;padding:20px;}
+.card+.card{margin-top:14px;}
+.ch{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:10px;}
+.ct{font-family:var(--head);font-size:11px;color:var(--g);letter-spacing:1.5px;}
+.cs{font-size:11px;color:rgba(255,255,255,.26);margin-top:2px;}
 
 /* MAP LIST */
-.srch{width:100%;padding:10px 13px;background:rgba(0,0,0,.25);
+.srch{width:100%;padding:9px 13px;background:rgba(0,0,0,.25);
   border:1px solid rgba(0,255,136,.1);border-radius:10px;color:#fff;
-  font-size:13px;outline:none;transition:all .3s;margin-bottom:13px;}
-.srch:focus{border-color:rgba(0,255,136,.35);}
-.srch::placeholder{color:rgba(255,255,255,.22);}
-
-.mi{display:flex;align-items:center;gap:12px;padding:13px 14px;
-  background:rgba(0,0,0,.2);border:1px solid rgba(0,255,136,.07);border-radius:13px;
-  margin-bottom:9px;transition:all .3s;animation:si .3s ease;}
-@keyframes si{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.mi:hover{border-color:rgba(0,255,136,.18);background:rgba(0,255,136,.04);}
-.mi.sel{border-color:rgba(0,255,136,.35)!important;background:rgba(0,255,136,.08)!important;}
-.mi-cb{width:17px;height:17px;border-radius:5px;border:1.5px solid rgba(0,255,136,.3);
-  background:transparent;cursor:pointer;flex-shrink:0;appearance:none;transition:all .2s;position:relative;}
-.mi-cb:checked{background:var(--g);border-color:var(--g);box-shadow:0 0 8px rgba(0,255,136,.4);}
-.mi-cb:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  color:var(--bg);font-size:10px;font-weight:900;}
-.mi-ico{font-size:18px;flex-shrink:0;}
-.mi-info{flex:1;min-width:0;}
-.mi-name{font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.mi-meta{font-size:10px;color:rgba(255,255,255,.3);font-family:var(--mono);margin-top:2px;}
-.mi-badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:100px;letter-spacing:.5px;flex-shrink:0;}
-.mi-badge.on{background:rgba(0,255,136,.1);color:var(--g);border:1px solid rgba(0,255,136,.2);}
-.mi-badge.off{background:rgba(255,60,60,.1);color:var(--r);border:1px solid rgba(255,60,60,.2);}
-
-.sel-bar{display:flex;align-items:center;gap:10px;padding:10px 13px;
-  background:rgba(0,255,136,.06);border:1px solid rgba(0,255,136,.18);border-radius:11px;
-  margin-bottom:13px;transition:all .3s;}
+  font-size:13px;outline:none;transition:all .3s;margin-bottom:12px;}
+.srch:focus{border-color:rgba(0,255,136,.32);}
+.srch::placeholder{color:rgba(255,255,255,.2);}
+.sel-bar{display:flex;align-items:center;gap:9px;padding:9px 12px;
+  background:rgba(0,255,136,.06);border:1px solid rgba(0,255,136,.16);border-radius:10px;
+  margin-bottom:11px;}
 .sel-bar.hidden{display:none;}
 .sel-txt{font-size:12px;font-weight:700;color:var(--g);flex:1;}
-.sel-clr{font-size:11px;color:rgba(255,255,255,.35);cursor:pointer;text-decoration:underline;}
+.sel-clr{font-size:11px;color:rgba(255,255,255,.3);cursor:pointer;text-decoration:underline;}
 .sel-clr:hover{color:#fff;}
 
-.empty{text-align:center;padding:44px 20px;color:rgba(255,255,255,.22);}
-.empty-ico{font-size:36px;margin-bottom:10px;opacity:.4;}
+/* MAP ITEM */
+.mi{display:flex;align-items:stretch;gap:0;
+  background:rgba(0,0,0,.18);border:1px solid rgba(0,255,136,.07);border-radius:13px;
+  margin-bottom:8px;transition:all .3s;animation:si .3s ease;overflow:hidden;cursor:pointer;}
+@keyframes si{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.mi:hover{border-color:rgba(0,255,136,.18);background:rgba(0,255,136,.04);}
+.mi.sel{border-color:rgba(0,255,136,.35)!important;background:rgba(0,255,136,.07)!important;}
+.mi-check{display:flex;align-items:center;padding:0 14px;background:rgba(0,0,0,.15);border-right:1px solid rgba(0,255,136,.06);}
+.mi-cb{width:16px;height:16px;border-radius:5px;border:1.5px solid rgba(0,255,136,.3);
+  background:transparent;cursor:pointer;appearance:none;transition:all .2s;position:relative;flex-shrink:0;}
+.mi-cb:checked{background:var(--g);border-color:var(--g);box-shadow:0 0 7px rgba(0,255,136,.4);}
+.mi-cb:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--bg);font-size:9px;font-weight:900;}
+.mi-body{flex:1;padding:12px 14px;}
+.mi-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.mi-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.mi-dot.on{background:var(--g);box-shadow:0 0 7px var(--g);}
+.mi-dot.off{background:rgba(255,255,255,.2);}
+.mi-name{font-weight:700;font-size:13px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mi-badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:100px;letter-spacing:.5px;flex-shrink:0;}
+.mi-badge.on{background:rgba(0,255,136,.1);color:var(--g);border:1px solid rgba(0,255,136,.22);}
+.mi-badge.off{background:rgba(255,255,255,.05);color:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.1);}
+.mi-details{display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;}
+.mi-row{display:flex;align-items:center;gap:5px;}
+.mi-key{font-size:10px;color:rgba(255,255,255,.28);min-width:60px;}
+.mi-val{font-size:10px;font-family:var(--mono);color:rgba(255,255,255,.55);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.mi-expand{display:flex;align-items:center;padding:0 12px;color:rgba(0,255,136,.3);font-size:14px;transition:all .2s;}
+.mi-expand:hover{color:var(--g);}
+
+/* MAP EXPANDED DETAIL */
+.mi-full{display:none;padding:12px 14px 14px;border-top:1px solid rgba(0,255,136,.06);
+  background:rgba(0,0,0,.15);}
+.mi-full.open{display:block;}
+.mi-full-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;}
+.mf-row{display:flex;flex-direction:column;gap:1px;}
+.mf-key{font-size:9px;color:rgba(255,255,255,.25);letter-spacing:.5px;}
+.mf-val{font-size:11px;font-family:var(--mono);color:rgba(255,255,255,.6);word-break:break-all;}
+.mf-val a{color:var(--g);text-decoration:none;}
+.mf-val a:hover{text-decoration:underline;}
+
+.empty{text-align:center;padding:40px 20px;color:rgba(255,255,255,.2);}
+.empty-ico{font-size:34px;margin-bottom:9px;opacity:.35;}
 
 /* ACTION PANEL */
-.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
-.act-btn{padding:14px 10px;border-radius:13px;border:none;cursor:pointer;
-  font-family:var(--body);font-size:12px;font-weight:700;letter-spacing:.3px;
-  transition:all .3s;display:flex;flex-direction:column;align-items:center;gap:6px;}
-.act-btn .act-ico{font-size:22px;}
-.act-btn.kick{background:rgba(255,200,0,.1);border:1px solid rgba(255,200,0,.2);color:var(--y);}
-.act-btn.kick:hover{background:rgba(255,200,0,.18);border-color:rgba(255,200,0,.4);}
-.act-btn.ban{background:rgba(255,60,60,.1);border:1px solid rgba(255,60,60,.2);color:var(--r);}
-.act-btn.ban:hover{background:rgba(255,60,60,.18);border-color:rgba(255,60,60,.4);}
-.act-btn.shutdown{background:rgba(255,100,0,.1);border:1px solid rgba(255,100,0,.2);color:#ff8844;}
-.act-btn.shutdown:hover{background:rgba(255,100,0,.18);border-color:rgba(255,100,0,.4);}
-.act-btn.broadcast{background:rgba(60,143,255,.1);border:1px solid rgba(60,143,255,.2);color:var(--b);}
-.act-btn.broadcast:hover{background:rgba(60,143,255,.18);border-color:rgba(60,143,255,.4);}
-.act-btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important;}
+.msg-lbl{font-size:10px;font-weight:700;color:rgba(0,255,136,.55);letter-spacing:1.5px;margin-bottom:7px;}
+.msg-area{width:100%;padding:10px 13px;background:rgba(0,0,0,.25);
+  border:1px solid rgba(0,255,136,.12);border-radius:10px;color:#fff;
+  font-family:var(--body);font-size:13px;outline:none;resize:vertical;min-height:72px;
+  transition:all .3s;line-height:1.5;margin-bottom:12px;}
+.msg-area:focus{border-color:rgba(0,255,136,.32);}
+.msg-area::placeholder{color:rgba(255,255,255,.18);}
 
-.msg-area{width:100%;padding:11px 14px;background:rgba(0,0,0,.25);
-  border:1px solid rgba(0,255,136,.12);border-radius:11px;color:#fff;
-  font-family:var(--body);font-size:13px;outline:none;resize:vertical;min-height:80px;
-  transition:all .3s;line-height:1.55;margin-bottom:12px;}
-.msg-area:focus{border-color:rgba(0,255,136,.35);}
-.msg-area::placeholder{color:rgba(255,255,255,.2);}
+.act-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px;}
+.act{padding:13px 8px;border-radius:12px;border:none;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  font-family:var(--body);font-size:11px;font-weight:700;letter-spacing:.3px;transition:all .3s;}
+.act .ico{font-size:20px;}
+.act:disabled{opacity:.35;cursor:not-allowed;}
+.act.kick{background:rgba(255,200,0,.1);border:1px solid rgba(255,200,0,.2);color:var(--y);}
+.act.kick:not(:disabled):hover{background:rgba(255,200,0,.18);border-color:rgba(255,200,0,.4);transform:translateY(-1px);}
+.act.ban{background:rgba(255,60,60,.1);border:1px solid rgba(255,60,60,.2);color:var(--r);}
+.act.ban:not(:disabled):hover{background:rgba(255,60,60,.18);border-color:rgba(255,60,60,.4);transform:translateY(-1px);}
+.act.shutdown{background:rgba(255,119,51,.1);border:1px solid rgba(255,119,51,.2);color:var(--o);}
+.act.shutdown:not(:disabled):hover{background:rgba(255,119,51,.18);border-color:rgba(255,119,51,.4);transform:translateY(-1px);}
+.act.broadcast{background:rgba(60,143,255,.1);border:1px solid rgba(60,143,255,.2);color:var(--b);}
+.act.broadcast:not(:disabled):hover{background:rgba(60,143,255,.18);border-color:rgba(60,143,255,.4);transform:translateY(-1px);}
+.act.shutall{background:rgba(200,0,0,.12);border:1px solid rgba(200,0,0,.25);color:#ff5555;grid-column:span 2;}
+.act.shutall:not(:disabled):hover{background:rgba(200,0,0,.2);border-color:rgba(200,0,0,.45);transform:translateY(-1px);}
 
-.send-btn{width:100%;padding:13px;border:none;border-radius:11px;cursor:pointer;
-  background:linear-gradient(135deg,var(--g),var(--g2));color:var(--bg);
-  font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:2px;
-  box-shadow:0 0 18px rgba(0,255,136,.3);transition:all .3s;}
-.send-btn:hover{transform:translateY(-1px);box-shadow:0 0 28px rgba(0,255,136,.5);}
-.send-btn:disabled{opacity:.4;transform:none;cursor:not-allowed;}
+.act-hint{font-size:10px;color:rgba(255,255,255,.22);text-align:center;margin-bottom:14px;}
+.divider{height:1px;background:rgba(0,255,136,.06);margin:14px 0;}
 
-.divider{height:1px;background:rgba(0,255,136,.06);margin:16px 0;}
+/* BAN BY ID */
+.ban-id-row{display:flex;gap:8px;margin-bottom:8px;}
+.ban-id-inp{flex:1;padding:10px 13px;background:rgba(0,0,0,.25);
+  border:1px solid rgba(255,60,60,.15);border-radius:10px;color:#fff;
+  font-family:var(--mono);font-size:13px;outline:none;transition:all .3s;}
+.ban-id-inp:focus{border-color:rgba(255,60,60,.4);background:rgba(255,60,60,.04);}
+.ban-id-inp::placeholder{color:rgba(255,255,255,.18);font-family:var(--body);}
+.ban-id-btn{padding:10px 16px;border-radius:10px;border:none;cursor:pointer;
+  background:rgba(255,60,60,.15);color:var(--r);border:1px solid rgba(255,60,60,.3);
+  font-weight:700;font-size:12px;transition:all .3s;white-space:nowrap;}
+.ban-id-btn:hover{background:rgba(255,60,60,.25);border-color:rgba(255,60,60,.5);}
 
 /* CMD LOG */
-.cmd-log{max-height:220px;overflow-y:auto;}
+.cmd-log{max-height:200px;overflow-y:auto;}
 .cmd-log::-webkit-scrollbar{width:4px;}
-.cmd-log::-webkit-scrollbar-thumb{background:rgba(0,255,136,.2);border-radius:2px;}
-.cli{padding:9px 12px;background:rgba(0,0,0,.2);border-radius:9px;
-  margin-bottom:7px;border-left:2px solid rgba(0,255,136,.2);animation:si .25s ease;}
-.cli.kick{border-left-color:var(--y);}
-.cli.ban{border-left-color:var(--r);}
-.cli.shutdown{border-left-color:#ff8844;}
-.cli.broadcast{border-left-color:var(--b);}
-.cli-top{display:flex;align-items:center;gap:7px;margin-bottom:3px;}
-.cli-type{font-size:9px;font-weight:700;letter-spacing:1px;padding:1px 7px;border-radius:100px;}
-.cli-type.kick{background:rgba(255,200,0,.12);color:var(--y);}
-.cli-type.ban{background:rgba(255,60,60,.12);color:var(--r);}
-.cli-type.shutdown{background:rgba(255,100,0,.12);color:#ff8844;}
-.cli-type.broadcast{background:rgba(60,143,255,.12);color:var(--b);}
-.cli-target{font-size:11px;color:rgba(255,255,255,.5);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.cli-time{font-size:9px;font-family:var(--mono);color:rgba(255,255,255,.22);}
-.cli-msg{font-size:11px;color:rgba(255,255,255,.45);margin-top:1px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cmd-log::-webkit-scrollbar-thumb{background:rgba(0,255,136,.18);border-radius:2px;}
+.cli{padding:9px 12px;background:rgba(0,0,0,.2);border-radius:9px;margin-bottom:6px;animation:si .25s ease;}
+.cli-top{display:flex;align-items:center;gap:6px;margin-bottom:2px;}
+.cli-badge{font-size:9px;font-weight:700;padding:1px 7px;border-radius:100px;letter-spacing:.5px;}
+.cli-badge.kick{background:rgba(255,200,0,.12);color:var(--y);}
+.cli-badge.ban{background:rgba(255,60,60,.12);color:var(--r);}
+.cli-badge.shutdown{background:rgba(255,119,51,.12);color:var(--o);}
+.cli-badge.broadcast{background:rgba(60,143,255,.12);color:var(--b);}
+.cli-badge.banid{background:rgba(180,0,255,.12);color:#cc88ff;}
+.cli-badge.shutall{background:rgba(200,0,0,.15);color:#ff5555;}
+.cli-target{font-size:11px;color:rgba(255,255,255,.45);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.cli-time{font-size:9px;font-family:var(--mono);color:rgba(255,255,255,.2);}
+.cli-msg{font-size:11px;color:rgba(255,255,255,.38);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 
 /* TOAST */
-.toast{position:fixed;bottom:24px;right:24px;z-index:9999;
-  padding:13px 20px;border-radius:13px;font-weight:700;font-size:13px;
-  animation:ti .3s ease;max-width:300px;}
-@keyframes ti{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:translateX(0)}}
-.toast.s{background:rgba(0,255,136,.13);border:1px solid rgba(0,255,136,.35);color:var(--g);}
-.toast.e{background:rgba(255,60,60,.13);border:1px solid rgba(255,60,60,.35);color:var(--r);}
-.toast.i{background:rgba(60,143,255,.13);border:1px solid rgba(60,143,255,.35);color:var(--b);}
+.toast{position:fixed;bottom:22px;right:22px;z-index:9999;
+  padding:12px 20px;border-radius:13px;font-weight:700;font-size:13px;
+  animation:ti .3s ease;max-width:300px;pointer-events:none;}
+@keyframes ti{from{opacity:0;transform:translateX(22px)}to{opacity:1;transform:translateX(0)}}
+.toast.s{background:rgba(0,255,136,.12);border:1px solid rgba(0,255,136,.35);color:var(--g);}
+.toast.e{background:rgba(255,60,60,.12);border:1px solid rgba(255,60,60,.35);color:var(--r);}
+.toast.i{background:rgba(60,143,255,.12);border:1px solid rgba(60,143,255,.35);color:var(--b);}
 
 /* MODAL */
 .mo{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.82);
   backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:18px;}
 .mo.open{display:flex;}
-.mb{background:#060e09;border-radius:20px;padding:26px;max-width:400px;width:100%;
-  animation:fadeUp .3s ease;}
-.mb-title{font-family:var(--head);font-size:15px;margin-bottom:8px;}
-.mb-body{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:16px;}
+.mb{background:#060e09;border-radius:20px;padding:26px;max-width:420px;width:100%;animation:fu .3s ease;}
+.mb-title{font-family:var(--head);font-size:14px;margin-bottom:7px;}
+.mb-body{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:14px;}
 .mb-pre{background:rgba(0,0,0,.3);border-radius:9px;padding:10px 13px;
-  font-size:11px;font-family:var(--mono);color:rgba(255,255,255,.45);
-  border:1px solid rgba(255,255,255,.05);margin-bottom:16px;max-height:110px;overflow-y:auto;line-height:1.7;}
+  font-size:11px;font-family:var(--mono);color:rgba(255,255,255,.42);
+  border:1px solid rgba(255,255,255,.05);margin-bottom:14px;max-height:110px;overflow-y:auto;line-height:1.7;}
 .mb-btns{display:flex;gap:9px;}
 .mb-cancel{flex:1;padding:11px;border-radius:10px;border:1px solid rgba(255,255,255,.12);
-  background:transparent;color:rgba(255,255,255,.45);cursor:pointer;font-weight:700;transition:all .3s;}
+  background:transparent;color:rgba(255,255,255,.4);cursor:pointer;font-weight:700;transition:all .3s;}
 .mb-cancel:hover{background:rgba(255,255,255,.05);color:#fff;}
-.mb-ok{flex:1;padding:11px;border-radius:10px;border:none;cursor:pointer;
-  color:#fff;font-weight:700;transition:all .3s;}
-.mb-ok.kick{background:linear-gradient(135deg,#cc9900,#997700);}
-.mb-ok.ban{background:linear-gradient(135deg,var(--r),var(--r2));}
-.mb-ok.shutdown{background:linear-gradient(135deg,#ff6600,#cc4400);}
-.mb-ok.broadcast{background:linear-gradient(135deg,var(--b),#2255cc);}
-.mb-ok:hover{transform:translateY(-1px);filter:brightness(1.15);}
-
-@media(max-width:580px){
-  .topbar{padding:0 14px;}
-  .wrap{padding:14px;}
-  .action-grid{grid-template-columns:1fr 1fr;}
-}
+.mb-ok{flex:1;padding:11px;border-radius:10px;border:none;cursor:pointer;color:#fff;font-weight:700;font-size:13px;transition:all .3s;}
+.mb-ok:hover{filter:brightness(1.15);transform:translateY(-1px);}
 </style>
 </head>
 <body>
@@ -249,22 +245,18 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 <!-- LOGIN -->
 <div id="loginScreen">
   <div class="lb">
-    <img src="https://res.cloudinary.com/dsjctfzj1/image/upload/v1760351559/IMG-20251007-WA0626_dv8s8r.jpg" class="lb-logo" alt="Logo">
+    <img src="https://res.cloudinary.com/dsjctfzj1/image/upload/v1760351559/IMG-20251007-WA0626_dv8s8r.jpg" class="lb-logo">
     <div class="lb-title">WARPAH AC</div>
     <div class="lb-sub">CONTROL PANEL · ADMIN ONLY</div>
     <label class="lb-lbl">PASSWORD</label>
     <div class="lb-wrap">
       <input type="password" id="lpw" class="lb-inp" placeholder="••••••••••••"
         onkeydown="if(event.key==='Enter')doLogin()" oninput="upDots()">
-      <button class="eye" onclick="togEye()" id="eyeBtn">
-        <svg width="17" height="17" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+      <button class="eye" onclick="togEye()">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
       </button>
     </div>
-    <div class="dots" id="dotsEl">
-      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot"></div>
-    </div>
+    <div class="dots" id="dotsEl"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
     <div class="lb-err" id="lberr"></div>
     <button class="lb-btn" id="lbtn" onclick="doLogin()">MASUK →</button>
     <div class="lb-info" id="lbinfo"></div>
@@ -274,9 +266,9 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 <!-- DASHBOARD -->
 <div id="dash">
   <div class="topbar">
-    <img src="https://res.cloudinary.com/dsjctfzj1/image/upload/v1760351559/IMG-20251007-WA0626_dv8s8r.jpg" class="topbar-logo">
-    <div class="topbar-name">WARPAH AC PANEL</div>
-    <div class="topbar-sep"></div>
+    <img src="https://res.cloudinary.com/dsjctfzj1/image/upload/v1760351559/IMG-20251007-WA0626_dv8s8r.jpg" class="t-logo">
+    <div class="t-name">WARPAH AC PANEL</div>
+    <div class="t-sep"></div>
     <div class="pill">
       <div class="pdot" id="fbdot"></div>
       <span id="fbtext" style="color:rgba(255,255,255,.4)">CONNECTING</span>
@@ -287,10 +279,11 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   <div class="wrap">
     <!-- STATS -->
     <div class="stats">
-      <div class="sc"><div class="sc-icon">🗺️</div><div class="sc-val" id="sTot">0</div><div class="sc-lbl">TOTAL MAP</div></div>
-      <div class="sc"><div class="sc-icon">✅</div><div class="sc-val" id="sOn">0</div><div class="sc-lbl">ONLINE</div></div>
-      <div class="sc"><div class="sc-icon">🎯</div><div class="sc-val" id="sSel">0</div><div class="sc-lbl">DIPILIH</div></div>
-      <div class="sc"><div class="sc-icon">📡</div><div class="sc-val" id="sCmds">0</div><div class="sc-lbl">CMD TERKIRIM</div></div>
+      <div class="sc"><div class="sc-ico">🗺️</div><div class="sc-val" id="sTot">0</div><div class="sc-lbl">TOTAL MAP</div></div>
+      <div class="sc"><div class="sc-ico">🟢</div><div class="sc-val" id="sOn">0</div><div class="sc-lbl">ONLINE</div></div>
+      <div class="sc"><div class="sc-ico">⚫</div><div class="sc-val" id="sOff">0</div><div class="sc-lbl">OFFLINE</div></div>
+      <div class="sc"><div class="sc-ico">🎯</div><div class="sc-val" id="sSel">0</div><div class="sc-lbl">DIPILIH</div></div>
+      <div class="sc"><div class="sc-ico">📡</div><div class="sc-val" id="sCmds">0</div><div class="sc-lbl">CMD TERKIRIM</div></div>
     </div>
 
     <div class="layout">
@@ -298,65 +291,72 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
       <div>
         <div class="card">
           <div class="ch">
-            <div><div class="ct">🗺️ MAP LIST</div><div class="cs">Map yang terpasang anti-cheat kamu</div></div>
-            <div style="display:flex;gap:8px">
-              <button onclick="selAll()" style="padding:5px 12px;border-radius:8px;border:1px solid rgba(0,255,136,.2);background:transparent;color:rgba(0,255,136,.7);font-size:11px;font-weight:700;cursor:pointer;" id="selAllBtn">Pilih Semua</button>
-              <button onclick="refreshMaps()" style="padding:5px 12px;border-radius:8px;border:1px solid rgba(0,255,136,.15);background:transparent;color:rgba(0,255,136,.55);font-size:11px;cursor:pointer;">↻</button>
+            <div><div class="ct">🗺️ MAP LIST</div><div class="cs">Map yang terpasang Warpah Anti-Cheat</div></div>
+            <div style="display:flex;gap:7px;align-items:center;">
+              <button onclick="selAll()" style="padding:5px 11px;border-radius:8px;border:1px solid rgba(0,255,136,.18);background:transparent;color:rgba(0,255,136,.65);font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='rgba(0,255,136,.08)'" onmouseout="this.style.background='transparent'">Pilih Semua</button>
+              <button onclick="deselAll()" style="padding:5px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.35);font-size:11px;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='rgba(255,255,255,.05)'" onmouseout="this.style.background='transparent'">Batal</button>
+              <button onclick="refreshMaps()" style="padding:5px 10px;border-radius:8px;border:1px solid rgba(0,255,136,.12);background:transparent;color:rgba(0,255,136,.45);font-size:13px;cursor:pointer;">↻</button>
             </div>
           </div>
-          <!-- Selection bar -->
           <div class="sel-bar hidden" id="selBar">
             <div class="sel-txt" id="selTxt">0 map dipilih</div>
             <span class="sel-clr" onclick="deselAll()">Batal semua</span>
           </div>
-          <input type="text" class="srch" id="srch" placeholder="🔍 Cari nama map atau Place ID..." oninput="filterMaps()">
+          <input type="text" class="srch" id="srch" placeholder="🔍 Cari nama map, Place ID, atau owner..." oninput="filterMaps()">
           <div id="mapCon">
             <div class="empty"><div class="empty-ico">🔥</div><div style="font-size:13px">Menghubungkan ke Firebase...</div></div>
           </div>
         </div>
       </div>
 
-      <!-- RIGHT: ACTION + LOG -->
+      <!-- RIGHT -->
       <div>
         <!-- ACTION PANEL -->
         <div class="card">
           <div class="ch">
-            <div><div class="ct">⚡ AKSI</div><div class="cs" id="actionTarget">Pilih map terlebih dahulu</div></div>
+            <div><div class="ct">⚡ AKSI</div><div class="cs" id="actTarget">Pilih map terlebih dahulu</div></div>
           </div>
 
-          <!-- Pesan -->
-          <div style="font-size:10px;font-weight:700;color:rgba(0,255,136,.55);letter-spacing:1.5px;margin-bottom:7px;">PESAN (opsional)</div>
-          <textarea class="msg-area" id="msgArea" placeholder="Tulis pesan kick/broadcast di sini...&#10;Kosongkan untuk pesan default."></textarea>
+          <div class="msg-lbl">PESAN KE PLAYER (opsional)</div>
+          <textarea class="msg-area" id="msgArea" placeholder="Tulis pesan untuk kick/broadcast...&#10;Kosongkan untuk pesan default."></textarea>
 
-          <!-- Aksi buttons -->
-          <div class="action-grid">
-            <button class="act-btn kick" id="btnKick" onclick="openModal('kick')" disabled>
-              <span class="act-ico">👢</span>KICK ALL
-            </button>
-            <button class="act-btn ban" id="btnBan" onclick="openModal('ban')" disabled>
-              <span class="act-ico">🔨</span>BAN ALL
-            </button>
-            <button class="act-btn shutdown" id="btnShut" onclick="openModal('shutdown')" disabled>
-              <span class="act-ico">⛔</span>SHUTDOWN
-            </button>
-            <button class="act-btn broadcast" id="btnBcast" onclick="openModal('broadcast')" disabled>
-              <span class="act-ico">📢</span>BROADCAST
-            </button>
+          <div class="act-grid">
+            <button class="act kick" id="btnKick" onclick="openModal('kick')" disabled><span class="ico">👢</span>KICK ALL</button>
+            <button class="act ban"  id="btnBan"  onclick="openModal('ban')"  disabled><span class="ico">🔨</span>BAN ALL</button>
+            <button class="act shutdown" id="btnShut" onclick="openModal('shutdown')" disabled><span class="ico">⛔</span>SHUTDOWN</button>
+            <button class="act broadcast" id="btnBcast" onclick="openModal('broadcast')" disabled><span class="ico">📢</span>BROADCAST</button>
+            <button class="act shutall" id="btnShutAll" onclick="openModal('shutall')"><span class="ico">💥</span>SHUTDOWN SEMUA SERVER</button>
+          </div>
+          <div class="act-hint">Command → Firebase → Roblox eksekusi ≤10 detik</div>
+
+          <div class="divider"></div>
+
+          <!-- BAN BY USER ID -->
+          <div class="ct" style="margin-bottom:10px;">🔨 BAN BY USER ID</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:9px;">Ban player tertentu berdasarkan Roblox User ID</div>
+          <div class="ban-id-row">
+            <input type="text" id="banIdInp" class="ban-id-inp" placeholder="Masukkan Roblox User ID...">
+            <button class="ban-id-btn" onclick="openModal('banid')">BAN</button>
           </div>
 
-          <div style="font-size:10px;color:rgba(255,255,255,.25);text-align:center;margin-top:4px;">
-            Command dikirim via Firebase → script Roblox eksekusi dalam ~10 detik
-          </div>
+          <div class="divider"></div>
+
+          <!-- BAN OWNER -->
+          <div class="ct" style="margin-bottom:10px;">👑 BAN OWNER MAP</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:9px;">Ban owner/creator dari map yang dipilih (perlu pilih map dulu)</div>
+          <button class="act ban" style="width:100%;padding:11px;" id="btnBanOwner" onclick="openModal('banowner')" disabled>
+            <span>🚫 BAN OWNER MAP TERPILIH</span>
+          </button>
         </div>
 
         <!-- CMD LOG -->
-        <div class="card" style="margin-top:16px;">
+        <div class="card" style="margin-top:14px;">
           <div class="ch">
             <div><div class="ct">📋 COMMAND LOG</div><div class="cs">Riwayat command yang dikirim</div></div>
-            <button onclick="clearLog()" style="padding:4px 11px;border-radius:8px;border:1px solid rgba(255,60,60,.2);background:transparent;color:rgba(255,100,100,.5);font-size:10px;cursor:pointer;">Clear</button>
+            <button onclick="clearLog()" style="padding:4px 10px;border-radius:7px;border:1px solid rgba(255,60,60,.18);background:transparent;color:rgba(255,100,100,.45);font-size:10px;cursor:pointer;">Clear</button>
           </div>
           <div class="cmd-log" id="cmdLog">
-            <div class="empty" style="padding:20px"><div style="font-size:12px;color:rgba(255,255,255,.2)">Belum ada command</div></div>
+            <div class="empty" style="padding:18px"><div style="font-size:12px;color:rgba(255,255,255,.18)">Belum ada command</div></div>
           </div>
         </div>
       </div>
@@ -368,21 +368,21 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 <div class="mo" id="modal">
   <div class="mb">
     <div class="mb-title" id="mTitle"></div>
-    <div class="mb-body" id="mBody"></div>
-    <div class="mb-pre" id="mPre"></div>
+    <div class="mb-body"  id="mBody"></div>
+    <div class="mb-pre"   id="mPre"></div>
     <div class="mb-btns">
       <button class="mb-cancel" onclick="closeModal()">Batal</button>
-      <button class="mb-ok" id="mOkBtn" onclick="execAction()"></button>
+      <button class="mb-ok" id="mOk" onclick="execAction()">Konfirmasi</button>
     </div>
   </div>
 </div>
 
 <script type="module">
-import { initializeApp }                    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, onValue, push, set, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { initializeApp }  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, onValue, push, set, update, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 // ============================================================
-// ⚠️  GANTI DI SINI
+// ⚠️ GANTI DI SINI
 // ============================================================
 const firebaseConfig = {
   apiKey:            "AIzaSyAl_c4-3_Y42iO8mKqS0QHIywxGAtNTSG8",
@@ -393,13 +393,12 @@ const firebaseConfig = {
   messagingSenderId: "1021757972108",
   appId:             "1:1021757972108:web:4735c04362ba4ae731a5a9"
 };
-const DASHBOARD_PASSWORD = "WarpahExploits2026"; // ganti password di sini
+const DASHBOARD_PASSWORD = "WarpahExploits2026";
 // ============================================================
 
 const MAX_ATT = 5, LOCK_SEC = 60;
-
-const app  = initializeApp(firebaseConfig);
-const db   = getDatabase(app);
+const app = initializeApp(firebaseConfig);
+const db  = getDatabase(app);
 const mapsRef = ref(db, 'warpah_maps');
 const cmdsRef = ref(db, 'warpah_commands');
 const connRef = ref(db, '.info/connected');
@@ -411,6 +410,7 @@ let cmdCount    = 0;
 let logEntries  = [];
 let filterQ     = '';
 let loginAtt    = 0, locked = false, lockTmr = null;
+let expandedKey = null;
 
 // ============================================================
 // LOGIN
@@ -464,23 +464,20 @@ window.doLogout = () => {
 };
 
 // ============================================================
-// INIT DASHBOARD
+// INIT
 // ============================================================
 function initDash() {
-  // Firebase connection status
   onValue(connRef, snap => {
     const on = snap.val();
     document.getElementById('fbdot').classList.toggle('on', on);
     const t = document.getElementById('fbtext');
     t.textContent = on ? 'FIREBASE ON' : 'OFFLINE';
-    t.style.color = on ? 'var(--g)' : 'rgba(255,100,100,.7)';
+    t.style.color  = on ? 'var(--g)' : 'rgba(255,100,100,.7)';
   });
 
-  // Maps realtime
   onValue(mapsRef, snap => {
     mapsData = {};
     if (snap.exists()) snap.forEach(c => { mapsData[c.key] = { _key: c.key, ...c.val() }; });
-    // Remove selected yang sudah hilang
     for (const k of selectedSet) { if (!mapsData[k]) selectedSet.delete(k); }
     renderMaps(); updateStats();
   });
@@ -489,16 +486,27 @@ function initDash() {
 // ============================================================
 // RENDER MAPS
 // ============================================================
+function isOnline(m) {
+  if (!m.lastSeen) return false;
+  return (Date.now() - m.lastSeen) < 70000;
+}
+function timeAgo(ts) {
+  if (!ts) return '?';
+  const s = Math.floor((Date.now() - ts) / 1000);
+  if (s < 5)  return 'baru saja';
+  if (s < 60) return s + 'd lalu';
+  if (s < 3600) return Math.floor(s/60) + 'm lalu';
+  return Math.floor(s/3600) + 'j lalu';
+}
+
 function renderMaps() {
   const con = document.getElementById('mapCon');
   let entries = Object.values(mapsData);
-
   if (filterQ) entries = entries.filter(m =>
     (m.name||'').toLowerCase().includes(filterQ) ||
-    String(m.placeId||'').includes(filterQ)
+    String(m.placeId||'').includes(filterQ) ||
+    (m.creatorName||'').toLowerCase().includes(filterQ)
   );
-
-  // Sort: online first, then by name
   entries.sort((a,b) => {
     const ao = isOnline(a), bo = isOnline(b);
     if (ao !== bo) return ao ? -1 : 1;
@@ -506,73 +514,86 @@ function renderMaps() {
   });
 
   if (entries.length === 0) {
-    con.innerHTML = `<div class="empty"><div class="empty-ico">${filterQ?'🔍':'🗺️'}</div><div style="font-size:13px">${filterQ?'Tidak ada hasil':'Belum ada map terdaftar'}</div></div>`;
+    con.innerHTML = `<div class="empty"><div class="empty-ico">${filterQ?'🔍':'🗺️'}</div><div style="font-size:13px">${filterQ?'Tidak ada hasil pencarian':'Belum ada map terdaftar'}</div></div>`;
     return;
   }
 
   con.innerHTML = entries.map(m => {
     const online = isOnline(m);
     const sel    = selectedSet.has(m._key);
-    return `<div class="mi${sel?' sel':''}" id="mi_${m._key}" onclick="toggleSel('${m._key}')">
-      <input type="checkbox" class="mi-cb" ${sel?'checked':''} onclick="event.stopPropagation();toggleSel('${m._key}')">
-      <div class="mi-ico">${online?'🟢':'⚫'}</div>
-      <div class="mi-info">
-        <div class="mi-name">${esc(m.name||'Unknown Map')}</div>
-        <div class="mi-meta">ID: ${esc(String(m.placeId||'—'))} · Lapor: ${m.lastSeen?timeAgo(m.lastSeen):'?'}</div>
+    const exp    = expandedKey === m._key;
+    return `
+    <div class="mi${sel?' sel':''}" id="mi_${m._key}">
+      <div class="mi-check" onclick="toggleSel('${m._key}')">
+        <input type="checkbox" class="mi-cb" ${sel?'checked':''} onclick="event.stopPropagation();toggleSel('${m._key}')">
       </div>
-      <div class="mi-badge ${online?'on':'off'}">${online?'ONLINE':'OFFLINE'}</div>
+      <div class="mi-body" onclick="toggleExpand('${m._key}')">
+        <div class="mi-top">
+          <div class="mi-dot ${online?'on':'off'}"></div>
+          <div class="mi-name">${esc(m.name||'Unknown Map')}</div>
+          <div class="mi-badge ${online?'on':'off'}">${online?'ONLINE':'OFFLINE'}</div>
+        </div>
+        <div class="mi-details">
+          <div class="mi-row"><span class="mi-key">Place ID</span><span class="mi-val">${esc(String(m.placeId||'—'))}</span></div>
+          <div class="mi-row"><span class="mi-key">Players</span><span class="mi-val">${m.playerCount !== undefined ? m.playerCount : '?'}/${m.maxPlayers||'?'}</span></div>
+          <div class="mi-row"><span class="mi-key">Lapor</span><span class="mi-val">${timeAgo(m.lastSeen)}</span></div>
+          <div class="mi-row"><span class="mi-key">Owner</span><span class="mi-val">${esc(m.creatorName||m.creatorId||'?')}</span></div>
+        </div>
+      </div>
+      <div class="mi-expand" onclick="toggleExpand('${m._key}')">${exp?'▲':'▼'}</div>
+    </div>
+    <div class="mi-full${exp?' open':''}" id="mif_${m._key}">
+      <div class="mi-full-grid">
+        <div class="mf-row"><div class="mf-key">GAME ID</div><div class="mf-val">${esc(String(m.gameId||'—'))}</div></div>
+        <div class="mf-row"><div class="mf-key">PLACE ID</div><div class="mf-val">${esc(String(m.placeId||'—'))}</div></div>
+        <div class="mf-row"><div class="mf-key">JOB ID</div><div class="mf-val" style="font-size:9px">${esc(String(m.jobId||'—'))}</div></div>
+        <div class="mf-row"><div class="mf-key">PLAYERS</div><div class="mf-val">${m.playerCount !== undefined ? m.playerCount : '?'} / ${m.maxPlayers||'?'}</div></div>
+        <div class="mf-row"><div class="mf-key">CREATOR ID</div><div class="mf-val">${esc(String(m.creatorId||'—'))}</div></div>
+        <div class="mf-row"><div class="mf-key">CREATOR TYPE</div><div class="mf-val">${esc(String(m.creatorType||'—'))}</div></div>
+        <div class="mf-row"><div class="mf-key">MAX PLAYERS</div><div class="mf-val">${esc(String(m.maxPlayers||'—'))}</div></div>
+        <div class="mf-row"><div class="mf-key">PRIVASI</div><div class="mf-val">${esc(m.privacy||'Public')}</div></div>
+        <div class="mf-row" style="grid-column:span 2"><div class="mf-key">LINK GAME</div><div class="mf-val"><a href="https://www.roblox.com/games/${m.placeId}" target="_blank">roblox.com/games/${m.placeId}</a></div></div>
+        <div class="mf-row" style="grid-column:span 2"><div class="mf-key">JOIN SERVER INI</div><div class="mf-val"><a href="https://www.roblox.com/games/${m.placeId}?gameInstanceId=${m.jobId}" target="_blank">roblox.com/games/${m.placeId}?gameInstanceId=...</a></div></div>
+        <div class="mf-row" style="grid-column:span 2"><div class="mf-key">FIREBASE KEY</div><div class="mf-val" style="font-size:9px;color:rgba(255,255,255,.3)">${esc(m._key)}</div></div>
+      </div>
     </div>`;
   }).join('');
 }
 
-function isOnline(m) {
-  if (!m.lastSeen) return false;
-  return (Date.now() - m.lastSeen) < 70000; // online jika lapor < 70 detik lalu
-}
-
-function timeAgo(ts) {
-  const s = Math.floor((Date.now() - ts) / 1000);
-  if (s < 60) return s + 'd lalu';
-  if (s < 3600) return Math.floor(s/60) + 'm lalu';
-  return Math.floor(s/3600) + 'j lalu';
-}
-
+window.toggleExpand = (key) => {
+  expandedKey = expandedKey === key ? null : key;
+  renderMaps();
+};
 window.filterMaps = () => { filterQ = document.getElementById('srch').value.toLowerCase(); renderMaps(); };
-window.refreshMaps = () => { renderMaps(); toast('Map list diperbarui','i'); };
+window.refreshMaps = () => { renderMaps(); toast('Diperbarui','i'); };
 
 // ============================================================
 // SELECT
 // ============================================================
 window.toggleSel = (key) => {
-  if (selectedSet.has(key)) selectedSet.delete(key);
-  else selectedSet.add(key);
+  if (selectedSet.has(key)) selectedSet.delete(key); else selectedSet.add(key);
   updateSel(); renderMaps();
 };
-window.selAll = () => {
-  Object.keys(mapsData).forEach(k => selectedSet.add(k));
-  updateSel(); renderMaps();
-};
+window.selAll = () => { Object.keys(mapsData).forEach(k => selectedSet.add(k)); updateSel(); renderMaps(); };
 window.deselAll = () => { selectedSet.clear(); updateSel(); renderMaps(); };
 
 function updateSel() {
   const n = selectedSet.size;
   document.getElementById('sSel').textContent = n;
-  const bar = document.getElementById('selBar');
-  bar.classList.toggle('hidden', n === 0);
+  document.getElementById('selBar').classList.toggle('hidden', n === 0);
   document.getElementById('selTxt').textContent = n + ' map dipilih';
-  document.getElementById('actionTarget').textContent = n === 0 ? 'Pilih map terlebih dahulu' : n + ' map dipilih';
-  ['btnKick','btnBan','btnShut','btnBcast'].forEach(id => {
+  document.getElementById('actTarget').textContent = n === 0 ? 'Pilih map terlebih dahulu' : n + ' map dipilih';
+  ['btnKick','btnBan','btnShut','btnBcast','btnBanOwner'].forEach(id => {
     document.getElementById(id).disabled = n === 0;
   });
 }
 
-// ============================================================
-// STATS
-// ============================================================
 function updateStats() {
   const entries = Object.values(mapsData);
-  document.getElementById('sTot').textContent = entries.length;
-  document.getElementById('sOn').textContent  = entries.filter(isOnline).length;
+  const onCnt   = entries.filter(isOnline).length;
+  document.getElementById('sTot').textContent  = entries.length;
+  document.getElementById('sOn').textContent   = onCnt;
+  document.getElementById('sOff').textContent  = entries.length - onCnt;
   document.getElementById('sCmds').textContent = cmdCount;
 }
 
@@ -580,94 +601,172 @@ function updateStats() {
 // MODAL
 // ============================================================
 const META = {
-  kick:      { icon:'👢', label:'KICK ALL',  color:'#cc9900', body:'Semua player di map yang dipilih akan di-KICK.' },
-  ban:       { icon:'🔨', label:'BAN ALL',   color:'var(--r)', body:'Semua player di map yang dipilih akan di-BAN dan di-kick.' },
-  shutdown:  { icon:'⛔', label:'SHUTDOWN',  color:'#ff6600', body:'Server map yang dipilih akan di-shutdown. Semua player di-kick dan server dikunci sementara.' },
-  broadcast: { icon:'📢', label:'BROADCAST', color:'var(--b)', body:'Kirim pesan ke semua player di map yang dipilih.' },
+  kick:      { label:'KICK ALL',            color:'var(--y)', body:'Semua player di map yang dipilih akan di-KICK.' },
+  ban:       { label:'BAN ALL',             color:'var(--r)', body:'Semua player di map yang dipilih akan di-BAN permanent.' },
+  shutdown:  { label:'SHUTDOWN',            color:'var(--o)', body:'Server map yang dipilih akan di-shutdown, semua player di-kick.' },
+  broadcast: { label:'BROADCAST',           color:'var(--b)', body:'Kirim pesan ke semua player di map yang dipilih.' },
+  shutall:   { label:'SHUTDOWN SEMUA',      color:'#ff4444',  body:'⚠️ SEMUA server yang terpasang anti-cheat akan di-shutdown sekaligus!' },
+  banid:     { label:'BAN USER ID',         color:'#cc88ff',  body:'Ban player berdasarkan Roblox User ID. Ban ini berlaku di semua map yang pakai anti-cheat kamu.' },
+  banowner:  { label:'BAN OWNER MAP',       color:'var(--r)', body:'Ban owner/creator dari map yang dipilih. Owner tidak bisa masuk ke semua map yang pakai anti-cheat kamu.' },
 };
 
 window.openModal = (type) => {
-  if (selectedSet.size === 0) { toast('Pilih minimal 1 map dulu!','e'); return; }
+  if ((type === 'kick' || type === 'ban' || type === 'shutdown' || type === 'broadcast' || type === 'banowner') && selectedSet.size === 0) {
+    toast('Pilih minimal 1 map dulu!','e'); return;
+  }
+  if (type === 'banid') {
+    const uid = document.getElementById('banIdInp').value.trim();
+    if (!uid || !/^\d+$/.test(uid)) { toast('Masukkan User ID yang valid (angka)!','e'); return; }
+  }
   pendingType = type;
-  const m = META[type];
+  const m   = META[type];
   const msg = document.getElementById('msgArea').value.trim();
-  const targets = [...selectedSet].map(k => mapsData[k]?.name || k);
 
-  document.getElementById('mTitle').innerHTML = `<span style="color:${m.color}">${m.icon} ${m.label}?</span>`;
+  let preText = '';
+  if (type === 'shutall') {
+    const all = Object.values(mapsData);
+    preText = `Semua map (${all.length}):\n` + all.map(m => `• ${m.name||'?'} (${m.placeId||'?'})`).join('\n');
+  } else if (type === 'banid') {
+    const uid = document.getElementById('banIdInp').value.trim();
+    preText = `User ID: ${uid}`;
+  } else if (type === 'banowner') {
+    const owners = [...selectedSet].map(k => {
+      const mp = mapsData[k];
+      return `• ${mp?.name||'?'} → Owner ID: ${mp?.creatorId||'?'}`;
+    });
+    preText = owners.join('\n');
+  } else {
+    const targets = [...selectedSet].map(k => `• ${mapsData[k]?.name||k} (${mapsData[k]?.placeId||'?'})`);
+    preText = targets.join('\n') + (msg ? `\n\nPesan:\n"${msg}"` : '');
+  }
+
+  document.getElementById('mTitle').innerHTML = `<span style="color:${m.color}">${m.label}?</span>`;
   document.getElementById('mBody').textContent = m.body;
-  document.getElementById('mPre').innerHTML =
-    `<b style="color:rgba(255,255,255,.6)">Target map:</b>\n` + targets.map(t=>`• ${t}`).join('\n') +
-    (msg ? `\n\n<b style="color:rgba(255,255,255,.6)">Pesan:</b>\n${msg}` : '');
-  const okBtn = document.getElementById('mOkBtn');
-  okBtn.textContent = m.label;
-  okBtn.className = 'mb-ok ' + type;
+  document.getElementById('mPre').textContent  = preText;
+  const ok = document.getElementById('mOk');
+  ok.textContent = m.label;
+  ok.style.background = type === 'broadcast' ? 'linear-gradient(135deg,var(--b),#2255cc)'
+    : type === 'kick' ? 'linear-gradient(135deg,#aa8800,#886600)'
+    : 'linear-gradient(135deg,var(--r),var(--r2))';
   document.getElementById('modal').classList.add('open');
 };
+
 window.closeModal = () => { document.getElementById('modal').classList.remove('open'); pendingType = null; };
 document.getElementById('modal').addEventListener('click', e => { if(e.target===document.getElementById('modal')) closeModal(); });
 
 // ============================================================
-// EXEC ACTION — tulis command ke Firebase
+// EXEC — tulis ke Firebase, script Roblox akan baca
 // ============================================================
 window.execAction = async () => {
-  if (!pendingType || selectedSet.size === 0) return;
+  if (!pendingType) return;
   closeModal();
 
-  const type    = pendingType;
-  const msg     = document.getElementById('msgArea').value.trim();
-  const targets = [...selectedSet];
-  const m       = META[type];
+  const type = pendingType;
+  const msg  = document.getElementById('msgArea').value.trim();
 
-  // Tulis satu command per map yang dipilih
-  for (const mapKey of targets) {
-    const mapData = mapsData[mapKey];
-    if (!mapData) continue;
-    await push(cmdsRef, {
-      type,
-      mapKey,
-      placeId:   mapData.placeId || 0,
-      message:   msg || '',
-      createdAt: Date.now(),
-      executed:  false
-    });
+  if (type === 'shutall') {
+    // Kirim command ke SEMUA map
+    for (const mapKey of Object.keys(mapsData)) {
+      await push(cmdsRef, {
+        type: 'shutdown',
+        mapKey,
+        placeId:   mapsData[mapKey]?.placeId || 0,
+        message:   msg,
+        createdAt: Date.now(),
+        done:      false
+      });
+    }
+    addLog('shutall', Object.values(mapsData).map(m=>m.name||'?'), msg);
+    toast(`💥 Shutdown dikirim ke ${Object.keys(mapsData).length} server!`, 's');
+    deselAll();
+    return;
   }
 
-  // Tambah ke log lokal
-  const logEntry = {
-    type,
-    targets: targets.map(k => mapsData[k]?.name || k),
-    msg,
-    time: new Date().toLocaleTimeString('id-ID')
-  };
-  logEntries.unshift(logEntry);
-  cmdCount += targets.length;
-  renderCmdLog();
-  updateStats();
+  if (type === 'banid') {
+    const uid = document.getElementById('banIdInp').value.trim();
+    // Kirim ban command ke SEMUA map (supaya banstore tertulis di semua)
+    for (const mapKey of Object.keys(mapsData)) {
+      await push(cmdsRef, {
+        type:      'banid',
+        mapKey,
+        userId:    uid,
+        placeId:   mapsData[mapKey]?.placeId || 0,
+        message:   msg,
+        createdAt: Date.now(),
+        done:      false
+      });
+    }
+    addLog('banid', ['UserID: ' + uid], msg);
+    toast(`🔨 Ban dikirim untuk User ID ${uid}`, 's');
+    document.getElementById('banIdInp').value = '';
+    return;
+  }
 
-  toast(`${m.icon} ${m.label} dikirim ke ${targets.length} map!`, 's');
+  if (type === 'banowner') {
+    for (const mapKey of selectedSet) {
+      const mp = mapsData[mapKey];
+      if (!mp?.creatorId) continue;
+      for (const allKey of Object.keys(mapsData)) {
+        await push(cmdsRef, {
+          type:      'banid',
+          mapKey:    allKey,
+          userId:    String(mp.creatorId),
+          placeId:   mapsData[allKey]?.placeId || 0,
+          message:   msg,
+          createdAt: Date.now(),
+          done:      false
+        });
+      }
+    }
+    addLog('banowner', [...selectedSet].map(k=>`Owner: ${mapsData[k]?.creatorId||'?'}`), msg);
+    toast(`🚫 Ban owner terkirim!`, 's');
+    deselAll();
+    return;
+  }
+
+  // Kick / Ban / Shutdown / Broadcast → ke map yang dipilih
+  for (const mapKey of selectedSet) {
+    const mp = mapsData[mapKey];
+    await push(cmdsRef, {
+      type,
+      mapKey,          // ← key Firebase map, script akan filter ini
+      placeId: mp?.placeId || 0,
+      message: msg,
+      createdAt: Date.now(),
+      done: false
+    });
+  }
+  addLog(type, [...selectedSet].map(k=>mapsData[k]?.name||k), msg);
+  toast(`${META[type].label} dikirim ke ${selectedSet.size} map!`, 's');
   deselAll();
 };
 
 // ============================================================
-// CMD LOG
+// LOG
 // ============================================================
-function renderCmdLog() {
+function addLog(type, targets, msg) {
+  cmdCount += targets.length;
+  logEntries.unshift({ type, targets, msg, time: new Date().toLocaleTimeString('id-ID') });
+  document.getElementById('sCmds').textContent = cmdCount;
+  renderLog();
+}
+function renderLog() {
   const con = document.getElementById('cmdLog');
   if (logEntries.length === 0) {
-    con.innerHTML = '<div class="empty" style="padding:20px"><div style="font-size:12px;color:rgba(255,255,255,.2)">Belum ada command</div></div>';
+    con.innerHTML = '<div class="empty" style="padding:16px"><div style="font-size:12px;color:rgba(255,255,255,.18)">Belum ada command</div></div>';
     return;
   }
-  con.innerHTML = logEntries.slice(0, 20).map(l => `
-    <div class="cli ${l.type}">
+  con.innerHTML = logEntries.slice(0,25).map(l => `
+    <div class="cli">
       <div class="cli-top">
-        <span class="cli-type ${l.type}">${META[l.type].label}</span>
+        <span class="cli-badge ${l.type}">${(META[l.type]||{label:l.type}).label}</span>
         <span class="cli-target">${l.targets.join(', ')}</span>
         <span class="cli-time">${l.time}</span>
       </div>
       ${l.msg ? `<div class="cli-msg">"${esc(l.msg)}"</div>` : ''}
     </div>`).join('');
 }
-window.clearLog = () => { logEntries = []; renderCmdLog(); };
+window.clearLog = () => { logEntries = []; renderLog(); };
 
 // ============================================================
 // TOAST
@@ -679,7 +778,6 @@ window.toast = (msg, type='i') => {
   document.body.appendChild(t);
   setTimeout(()=>{ t.style.transition='opacity .3s'; t.style.opacity='0'; setTimeout(()=>t.remove(),300); }, 3500);
 };
-
 function esc(s) { const d=document.createElement('div'); d.textContent=String(s||''); return d.innerHTML; }
 </script>
 </body>
