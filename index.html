@@ -206,6 +206,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .cli-badge.shutdown{background:rgba(255,119,51,.12);color:var(--o);}
 .cli-badge.broadcast{background:rgba(60,143,255,.12);color:var(--b);}
 .cli-badge.banid{background:rgba(180,0,255,.12);color:#cc88ff;}
+.cli-badge.banowner{background:rgba(200,0,0,.15);color:#ff5555;}
 .cli-badge.shutall{background:rgba(200,0,0,.15);color:#ff5555;}
 .cli-target{font-size:11px;color:rgba(255,255,255,.45);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .cli-time{font-size:9px;font-family:var(--mono);color:rgba(255,255,255,.2);}
@@ -236,6 +237,60 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .mb-cancel:hover{background:rgba(255,255,255,.05);color:#fff;}
 .mb-ok{flex:1;padding:11px;border-radius:10px;border:none;cursor:pointer;color:#fff;font-weight:700;font-size:13px;transition:all .3s;}
 .mb-ok:hover{filter:brightness(1.15);transform:translateY(-1px);}
+
+/* ============================================================
+   WEBHOOK MANAGER — NEW STYLES (tidak mengubah yang di atas)
+   ============================================================ */
+.wh-add-row{display:flex;gap:8px;margin-bottom:8px;}
+.wh-inp{flex:1;padding:9px 12px;background:rgba(0,0,0,.25);
+  border:1px solid rgba(0,255,136,.12);border-radius:10px;color:#fff;
+  font-size:12px;font-family:var(--mono);outline:none;transition:all .3s;}
+.wh-inp:focus{border-color:rgba(0,255,136,.32);background:rgba(0,255,136,.04);}
+.wh-inp::placeholder{color:rgba(255,255,255,.2);font-family:var(--body);font-size:11px;}
+.wh-add-btn{padding:9px 16px;border-radius:10px;border:none;cursor:pointer;
+  background:rgba(0,255,136,.12);color:var(--g);border:1px solid rgba(0,255,136,.25);
+  font-weight:700;font-size:12px;transition:all .3s;white-space:nowrap;}
+.wh-add-btn:hover{background:rgba(0,255,136,.22);border-color:rgba(0,255,136,.4);}
+
+.wh-list{display:flex;flex-direction:column;gap:7px;margin-bottom:12px;max-height:200px;overflow-y:auto;}
+.wh-list::-webkit-scrollbar{width:4px;}
+.wh-list::-webkit-scrollbar-thumb{background:rgba(0,255,136,.18);border-radius:2px;}
+.wh-item{display:flex;align-items:center;gap:8px;padding:9px 12px;
+  background:rgba(0,0,0,.22);border:1px solid rgba(0,255,136,.08);border-radius:10px;
+  animation:si .25s ease;transition:all .2s;}
+.wh-item:hover{border-color:rgba(0,255,136,.16);}
+.wh-status-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:rgba(255,255,255,.2);}
+.wh-status-dot.ok{background:var(--g);box-shadow:0 0 6px var(--g);}
+.wh-status-dot.err{background:var(--r);box-shadow:0 0 6px var(--r);}
+.wh-label{font-size:12px;font-weight:700;color:rgba(255,255,255,.75);flex-shrink:0;min-width:60px;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.wh-url{font-size:10px;font-family:var(--mono);color:rgba(255,255,255,.28);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.wh-test-btn{padding:4px 10px;border-radius:7px;border:1px solid rgba(0,255,136,.2);
+  background:transparent;color:rgba(0,255,136,.55);font-size:10px;font-weight:700;
+  cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;}
+.wh-test-btn:hover{background:rgba(0,255,136,.1);color:var(--g);}
+.wh-del-btn{padding:4px 9px;border-radius:7px;border:1px solid rgba(255,60,60,.18);
+  background:transparent;color:rgba(255,80,80,.45);font-size:11px;
+  cursor:pointer;transition:all .2s;flex-shrink:0;}
+.wh-del-btn:hover{background:rgba(255,60,60,.1);color:var(--r);border-color:rgba(255,60,60,.4);}
+
+/* CHEATER LOG */
+.cheat-log{max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:7px;}
+.cheat-log::-webkit-scrollbar{width:4px;}
+.cheat-log::-webkit-scrollbar-thumb{background:rgba(255,60,60,.2);border-radius:2px;}
+.cl-item{padding:10px 13px;background:rgba(255,20,20,.04);border:1px solid rgba(255,60,60,.1);
+  border-radius:10px;animation:si .3s ease;}
+.cl-item:hover{border-color:rgba(255,60,60,.2);}
+.cl-top{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.cl-avatar{width:28px;height:28px;border-radius:8px;object-fit:cover;border:1px solid rgba(255,60,60,.2);flex-shrink:0;}
+.cl-name{font-size:12px;font-weight:700;color:rgba(255,150,150,.85);}
+.cl-uid{font-size:10px;font-family:var(--mono);color:rgba(255,255,255,.3);}
+.cl-time{font-size:9px;font-family:var(--mono);color:rgba(255,255,255,.2);margin-left:auto;}
+.cl-reason{font-size:11px;color:rgba(255,255,255,.45);line-height:1.5;}
+.cl-game{font-size:10px;color:rgba(255,255,255,.25);margin-top:3px;}
+.cl-new-badge{font-size:8px;font-weight:700;padding:1px 6px;border-radius:100px;
+  background:rgba(255,60,60,.2);color:var(--r);border:1px solid rgba(255,60,60,.35);
+  letter-spacing:.5px;flex-shrink:0;}
+/* ============================================================ */
 </style>
 </head>
 <body>
@@ -307,6 +362,31 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
             <div class="empty"><div class="empty-ico">🔥</div><div style="font-size:13px">Menghubungkan ke Firebase...</div></div>
           </div>
         </div>
+
+        <!-- ============================================================
+             CHEATER LOG CARD — NEW
+             ============================================================ -->
+        <div class="card" style="margin-top:14px;">
+          <div class="ch">
+            <div>
+              <div class="ct">⛔ CHEATER LOG</div>
+              <div class="cs">Log realtime cheater yang terdeteksi</div>
+            </div>
+            <div style="display:flex;gap:7px;align-items:center;">
+              <div style="display:flex;align-items:center;gap:5px;padding:4px 10px;background:rgba(255,60,60,.06);border:1px solid rgba(255,60,60,.15);border-radius:100px;">
+                <div style="width:6px;height:6px;border-radius:50%;background:var(--r);box-shadow:0 0 6px var(--r);animation:pp 2s infinite;"></div>
+                <span style="font-size:10px;font-weight:700;color:rgba(255,100,100,.7)">LIVE</span>
+              </div>
+              <div style="font-family:var(--head);font-size:16px;color:var(--r);min-width:24px;text-align:center;" id="cheatCount">0</div>
+              <button onclick="clearCheatLog()" style="padding:4px 10px;border-radius:7px;border:1px solid rgba(255,60,60,.18);background:transparent;color:rgba(255,100,100,.45);font-size:10px;cursor:pointer;">Clear</button>
+            </div>
+          </div>
+          <div class="cheat-log" id="cheatLog">
+            <div class="empty" style="padding:20px"><div class="empty-ico" style="font-size:24px">🛡️</div><div style="font-size:12px">Belum ada cheater terdeteksi</div></div>
+          </div>
+        </div>
+        <!-- ============================================================ -->
+
       </div>
 
       <!-- RIGHT -->
@@ -359,6 +439,37 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
             <div class="empty" style="padding:18px"><div style="font-size:12px;color:rgba(255,255,255,.18)">Belum ada command</div></div>
           </div>
         </div>
+
+        <!-- ============================================================
+             WEBHOOK MANAGER CARD — NEW
+             ============================================================ -->
+        <div class="card" style="margin-top:14px;">
+          <div class="ch">
+            <div>
+              <div class="ct">🔔 WEBHOOK CHEATER</div>
+              <div class="cs">Kelola Discord webhook untuk notif cheater</div>
+            </div>
+            <div style="font-family:var(--head);font-size:16px;color:var(--g);min-width:24px;text-align:center;" id="whCount">0</div>
+          </div>
+
+          <!-- Input label + URL -->
+          <div style="display:grid;grid-template-columns:100px 1fr;gap:7px;margin-bottom:7px;">
+            <input type="text" id="whLabelInp" class="wh-inp" placeholder="Label..." style="font-size:11px;font-family:var(--body);">
+            <input type="text" id="whUrlInp" class="wh-inp" placeholder="https://discord.com/api/webhooks/...">
+          </div>
+          <button class="wh-add-btn" style="width:100%;margin-bottom:12px;" onclick="addWebhook()">➕ TAMBAH WEBHOOK</button>
+
+          <!-- Webhook list -->
+          <div class="wh-list" id="whList">
+            <div class="empty" style="padding:16px"><div style="font-size:12px;color:rgba(255,255,255,.18)">Belum ada webhook tersimpan</div></div>
+          </div>
+
+          <div style="font-size:10px;color:rgba(255,255,255,.2);text-align:center;line-height:1.6;">
+            Webhook disimpan di Firebase · Panel akan forward notif cheater secara otomatis
+          </div>
+        </div>
+        <!-- ============================================================ -->
+
       </div>
     </div>
   </div>
@@ -379,7 +490,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 
 <script type="module">
 import { initializeApp }  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, onValue, push, set, update, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { getDatabase, ref, onValue, push, set, update, get, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 // ============================================================
 // ⚠️ GANTI DI SINI
@@ -399,9 +510,11 @@ const DASHBOARD_PASSWORD = "WarpahExploits2026";
 const MAX_ATT = 5, LOCK_SEC = 60;
 const app = initializeApp(firebaseConfig);
 const db  = getDatabase(app);
-const mapsRef = ref(db, 'warpah_maps');
-const cmdsRef = ref(db, 'warpah_commands');
-const connRef = ref(db, '.info/connected');
+const mapsRef    = ref(db, 'warpah_maps');
+const cmdsRef    = ref(db, 'warpah_commands');
+const connRef    = ref(db, '.info/connected');
+const webhooksRef  = ref(db, 'warpah_webhooks');   // NEW
+const cheaterLogRef = ref(db, 'warpah_cheater_log'); // NEW
 
 let mapsData   = {};
 let selectedSet = new Set();
@@ -411,6 +524,11 @@ let logEntries  = [];
 let filterQ     = '';
 let loginAtt    = 0, locked = false, lockTmr = null;
 let expandedKey = null;
+
+// NEW: webhook & cheater log state
+let webhooksData = {};        // key → {label, url}
+let cheatLogEntries = [];     // array of cheater objects, newest first
+let seenCheatKeys = new Set(); // track which Firebase keys we've already seen (avoid re-forwarding)
 
 // ============================================================
 // LOGIN
@@ -480,6 +598,33 @@ function initDash() {
     if (snap.exists()) snap.forEach(c => { mapsData[c.key] = { _key: c.key, ...c.val() }; });
     for (const k of selectedSet) { if (!mapsData[k]) selectedSet.delete(k); }
     renderMaps(); updateStats();
+  });
+
+  // NEW: listen webhooks
+  onValue(webhooksRef, snap => {
+    webhooksData = {};
+    if (snap.exists()) snap.forEach(c => { webhooksData[c.key] = { _key: c.key, ...c.val() }; });
+    renderWebhooks();
+  });
+
+  // NEW: listen cheater log — forward notif ke webhook baru
+  onValue(cheaterLogRef, snap => {
+    const newEntries = [];
+    if (snap.exists()) {
+      snap.forEach(c => {
+        const d = { _key: c.key, ...c.val() };
+        newEntries.push(d);
+        // Forward ke webhook hanya untuk entri yang belum dilihat
+        if (!seenCheatKeys.has(c.key)) {
+          seenCheatKeys.add(c.key);
+          forwardToWebhooks(d);
+        }
+      });
+    }
+    // Sort terbaru di atas
+    newEntries.sort((a,b) => (b.time||0) - (a.time||0));
+    cheatLogEntries = newEntries;
+    renderCheatLog();
   });
 }
 
@@ -611,7 +756,6 @@ const META = {
 };
 
 window.openModal = (type) => {
-  // Validasi
   if (['kick','ban','shutdown','broadcast','banowner'].includes(type) && selectedSet.size === 0) {
     toast('⚠️ Pilih minimal 1 map dulu!','e'); return;
   }
@@ -620,9 +764,8 @@ window.openModal = (type) => {
     if (!uid || !/^\d+$/.test(uid)) { toast('⚠️ Masukkan User ID yang valid (angka)!','e'); return; }
   }
 
-  // Simpan type langsung ke tombol konfirmasi — tidak pakai global variable
   const okBtn = document.getElementById('mOk');
-  okBtn.dataset.cmdtype = type;  // simpan di dataset, tidak akan hilang
+  okBtn.dataset.cmdtype = type;
 
   const m   = META[type];
   const msg = document.getElementById('msgArea').value.trim();
@@ -654,32 +797,9 @@ window.closeModal = () => { document.getElementById('modal').classList.remove('o
 document.getElementById('modal').addEventListener('click', e => { if(e.target===document.getElementById('modal')) closeModal(); });
 
 // ============================================================
-// EXEC — tulis ke Firebase, script Roblox akan baca
+// EXEC
 // ============================================================
-// Helper tulis command ke Firebase — di luar execAction supaya bisa diakses
-async function writeCmd(mKey, ct, msg, extra) {
-  const payload = {
-    cmdType:   ct,
-    mapKey:    mKey,
-    message:   msg || '',
-    createdAt: Date.now(),
-    done:      false
-  };
-  if (extra) Object.assign(payload, extra);
-  console.log('[WarpahAC] Writing command:', JSON.stringify(payload));
-  try {
-    const result = await push(cmdsRef, payload);
-    console.log('[WarpahAC] Command written OK, key:', result.key);
-    return result;
-  } catch(e) {
-    console.error('[WarpahAC] push error:', e);
-    toast('❌ Firebase error: ' + e.message, 'e');
-    return null;
-  }
-}
-
 window.execAction = async () => {
-  // Baca cmdType dari dataset tombol — tidak pakai pendingType global yang rawan null
   const okBtn  = document.getElementById('mOk');
   const cmdType = okBtn.dataset.cmdtype;
   if (!cmdType) { toast('❌ Error: tipe command tidak diketahui','e'); return; }
@@ -689,7 +809,6 @@ window.execAction = async () => {
   const msg = document.getElementById('msgArea').value.trim();
   console.log('[WarpahAC] execAction:', cmdType, 'selected:', [...selectedSet]);
 
-  // Snapshot selectedSet sebelum deselAll
   const selectedSnapshot = new Set(selectedSet);
 
   async function writeCmd(mKey, ct, extra) {
@@ -731,7 +850,6 @@ window.execAction = async () => {
     deselAll(); return;
   }
 
-  // kick / ban / shutdown / broadcast
   if (selectedSnapshot.size === 0) { toast('⚠️ Tidak ada map yang dipilih!','e'); return; }
   for (const mKey of selectedSnapshot) await writeCmd(mKey, cmdType);
   addLog(cmdType, [...selectedSnapshot].map(k=>mapsData[k]?.name||k), msg);
@@ -777,6 +895,177 @@ window.toast = (msg, type='i') => {
   setTimeout(()=>{ t.style.transition='opacity .3s'; t.style.opacity='0'; setTimeout(()=>t.remove(),300); }, 3500);
 };
 function esc(s) { const d=document.createElement('div'); d.textContent=String(s||''); return d.innerHTML; }
+
+// ============================================================
+// WEBHOOK MANAGER — NEW
+// ============================================================
+
+window.addWebhook = async () => {
+  const labelInp = document.getElementById('whLabelInp');
+  const urlInp   = document.getElementById('whUrlInp');
+  const label = labelInp.value.trim() || 'Webhook';
+  const url   = urlInp.value.trim();
+
+  if (!url || !url.startsWith('https://discord.com/api/webhooks/')) {
+    toast('⚠️ URL webhook tidak valid!', 'e'); return;
+  }
+
+  // Cek duplikat
+  const existing = Object.values(webhooksData).find(w => w.url === url);
+  if (existing) { toast('⚠️ Webhook ini sudah ada!', 'e'); return; }
+
+  try {
+    await push(webhooksRef, { label, url, addedAt: Date.now() });
+    labelInp.value = '';
+    urlInp.value = '';
+    toast('✅ Webhook berhasil ditambahkan!', 's');
+  } catch(e) {
+    toast('❌ Gagal simpan: ' + e.message, 'e');
+  }
+};
+
+window.deleteWebhook = async (key) => {
+  try {
+    await remove(ref(db, 'warpah_webhooks/' + key));
+    toast('🗑️ Webhook dihapus', 'i');
+  } catch(e) {
+    toast('❌ Gagal hapus: ' + e.message, 'e');
+  }
+};
+
+window.testWebhook = async (key) => {
+  const wh = webhooksData[key];
+  if (!wh) return;
+  const btn = document.querySelector(`[data-test-key="${key}"]`);
+  if (btn) { btn.textContent = '...'; btn.disabled = true; }
+
+  const success = await sendDiscordWebhook(wh.url, {
+    title: '🔔 Test Webhook — Warpah AC Panel',
+    color: 0x00FF88,
+    description: 'Webhook berhasil terhubung ke panel! Notif cheater akan dikirim ke sini.',
+    fields: [
+      { name: '🏷️ Label', value: wh.label, inline: true },
+      { name: '🕐 Waktu', value: new Date().toLocaleString('id-ID'), inline: true }
+    ],
+    footer: { text: '🛡️ Warpah Anti Cheat Panel' }
+  });
+
+  if (btn) { btn.textContent = success ? '✅' : '❌'; btn.disabled = false; setTimeout(()=>{ btn.textContent='Test'; }, 2500); }
+  toast(success ? '✅ Test berhasil!' : '❌ Test gagal — cek URL webhook', success ? 's' : 'e');
+};
+
+function renderWebhooks() {
+  const list = document.getElementById('whList');
+  const entries = Object.values(webhooksData);
+  document.getElementById('whCount').textContent = entries.length;
+
+  if (entries.length === 0) {
+    list.innerHTML = '<div class="empty" style="padding:16px"><div style="font-size:12px;color:rgba(255,255,255,.18)">Belum ada webhook tersimpan</div></div>';
+    return;
+  }
+
+  list.innerHTML = entries.map(w => `
+    <div class="wh-item">
+      <div class="wh-status-dot" id="wdot_${w._key}"></div>
+      <div class="wh-label" title="${esc(w.label)}">${esc(w.label)}</div>
+      <div class="wh-url" title="${esc(w.url)}">${esc(w.url)}</div>
+      <button class="wh-test-btn" data-test-key="${w._key}" onclick="testWebhook('${w._key}')">Test</button>
+      <button class="wh-del-btn" onclick="deleteWebhook('${w._key}')">🗑️</button>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// CHEATER LOG — NEW
+// ============================================================
+
+function renderCheatLog() {
+  const con = document.getElementById('cheatLog');
+  document.getElementById('cheatCount').textContent = cheatLogEntries.length;
+
+  if (cheatLogEntries.length === 0) {
+    con.innerHTML = '<div class="empty" style="padding:20px"><div class="empty-ico" style="font-size:24px">🛡️</div><div style="font-size:12px">Belum ada cheater terdeteksi</div></div>';
+    return;
+  }
+
+  con.innerHTML = cheatLogEntries.slice(0, 50).map((c, idx) => {
+    const avatarUrl = c.userId
+      ? `https://www.roblox.com/headshot-thumbnail/image?userId=${c.userId}&width=100&height=100&format=png`
+      : 'https://www.roblox.com/headshot-thumbnail/image?userId=1&width=100&height=100&format=png';
+    const timeStr = c.time ? new Date(c.time).toLocaleString('id-ID') : '?';
+    const isNew = idx < 3;
+    return `
+    <div class="cl-item">
+      <div class="cl-top">
+        <img class="cl-avatar" src="${avatarUrl}" onerror="this.style.display='none'">
+        <div style="flex:1;min-width:0;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div class="cl-name">${esc(c.username || 'Unknown')}</div>
+            ${isNew ? '<span class="cl-new-badge">NEW</span>' : ''}
+          </div>
+          <div class="cl-uid">UID: ${esc(String(c.userId || '?'))} · ${esc(c.displayName || '')}</div>
+        </div>
+        <div class="cl-time">${timeStr}</div>
+      </div>
+      <div class="cl-reason">⚠️ ${esc(c.reason || 'Copy Map')}</div>
+      <div class="cl-game">🎮 ${esc(c.gameName || '?')} · Place: ${esc(String(c.placeId || '?'))}</div>
+    </div>`;
+  }).join('');
+}
+
+window.clearCheatLog = () => {
+  // Hanya clear tampilan lokal, data di Firebase tetap
+  cheatLogEntries = [];
+  renderCheatLog();
+  toast('Log cheater dibersihkan (tampilan saja)', 'i');
+};
+
+// ============================================================
+// FORWARD CHEATER NOTIF KE SEMUA WEBHOOK — NEW
+// ============================================================
+
+async function forwardToWebhooks(cheater) {
+  const whs = Object.values(webhooksData);
+  if (whs.length === 0) return;
+
+  const banType = cheater.banDays === 0 ? 'Permanent' : ((cheater.banDays || '?') + ' Hari');
+  const embed = {
+    title: '⛔ Cheater Terdeteksi!',
+    color: 0xFF0000,
+    thumbnail: { url: `https://www.roblox.com/headshot-thumbnail/image?userId=${cheater.userId}&width=420&height=420&format=png` },
+    fields: [
+      { name: '👤 Username',      value: String(cheater.username    || '?'), inline: true },
+      { name: '🏷️ Display Name', value: String(cheater.displayName || '?'), inline: true },
+      { name: '🆔 User ID',       value: String(cheater.userId      || '?'), inline: true },
+      { name: '🔗 Profile',       value: `https://www.roblox.com/users/${cheater.userId}/profile`, inline: false },
+      { name: '📌 Game',          value: String(cheater.gameName    || '?'), inline: true },
+      { name: '🌐 Place ID',      value: String(cheater.placeId     || '?'), inline: true },
+      { name: '⚠️ Alasan',        value: String(cheater.reason      || 'Copy Map'), inline: false },
+      { name: '⏳ Durasi Ban',    value: banType, inline: true },
+      { name: '🕐 Waktu',         value: cheater.time ? new Date(cheater.time).toLocaleString('id-ID') : '?', inline: false }
+    ],
+    footer: { text: '🛡️ Anti Cheat Copy Map by Warpah — via Panel' },
+    timestamp: new Date().toISOString()
+  };
+
+  for (const wh of whs) {
+    sendDiscordWebhook(wh.url, embed); // fire and forget, tidak perlu await semua
+  }
+}
+
+async function sendDiscordWebhook(url, embed) {
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ embeds: [embed] })
+    });
+    return res.ok;
+  } catch(e) {
+    console.error('[WarpahAC] Webhook error:', e);
+    return false;
+  }
+}
 </script>
 </body>
 </html>
