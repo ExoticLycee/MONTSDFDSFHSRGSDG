@@ -291,6 +291,59 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background:rgba(255,60,60,.2);color:var(--r);border:1px solid rgba(255,60,60,.35);
   letter-spacing:.5px;flex-shrink:0;}
 /* ============================================================ */
+
+/* ============================================================
+   AC SETTINGS CARD — NEW STYLES
+   ============================================================ */
+.set-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.set-field{display:flex;flex-direction:column;gap:5px;}
+.set-field.full{grid-column:span 2;}
+.set-lbl{font-size:10px;font-weight:700;color:rgba(0,255,136,.5);letter-spacing:1.5px;}
+.set-inp{width:100%;padding:9px 12px;background:rgba(0,0,0,.25);
+  border:1px solid rgba(0,255,136,.12);border-radius:10px;color:#fff;
+  font-size:13px;font-family:var(--mono);outline:none;transition:all .3s;}
+.set-inp:focus{border-color:rgba(0,255,136,.35);background:rgba(0,255,136,.04);}
+.set-inp::placeholder{color:rgba(255,255,255,.18);font-family:var(--body);font-size:11px;}
+.set-textarea{width:100%;padding:9px 12px;background:rgba(0,0,0,.25);
+  border:1px solid rgba(0,255,136,.12);border-radius:10px;color:#fff;
+  font-size:12px;font-family:var(--mono);outline:none;resize:vertical;min-height:64px;
+  transition:all .3s;line-height:1.6;}
+.set-textarea:focus{border-color:rgba(0,255,136,.35);background:rgba(0,255,136,.04);}
+.set-hint{font-size:10px;color:rgba(255,255,255,.22);line-height:1.5;}
+.set-save-btn{width:100%;padding:12px;border:none;border-radius:11px;cursor:pointer;
+  background:linear-gradient(135deg,var(--g),var(--g2));color:var(--bg);
+  font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:2px;
+  box-shadow:0 0 16px rgba(0,255,136,.2);transition:all .3s;margin-top:4px;}
+.set-save-btn:hover{transform:translateY(-2px);box-shadow:0 0 28px rgba(0,255,136,.4);}
+.set-save-btn:disabled{opacity:.4;transform:none;cursor:not-allowed;}
+.set-status{font-size:11px;text-align:center;min-height:16px;margin-top:8px;transition:all .3s;}
+.set-status.ok{color:var(--g);}
+.set-status.err{color:var(--r);}
+.set-toggle-row{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 13px;background:rgba(0,0,0,.2);border:1px solid rgba(0,255,136,.08);
+  border-radius:10px;}
+.set-toggle-lbl{font-size:12px;font-weight:600;color:rgba(255,255,255,.65);}
+.set-toggle-sub{font-size:10px;color:rgba(255,255,255,.25);margin-top:1px;}
+.tog{position:relative;width:40px;height:22px;flex-shrink:0;}
+.tog input{opacity:0;width:0;height:0;}
+.tog-sl{position:absolute;inset:0;background:rgba(255,255,255,.1);border-radius:100px;
+  cursor:pointer;transition:all .3s;border:1px solid rgba(255,255,255,.1);}
+.tog-sl:before{content:'';position:absolute;width:16px;height:16px;border-radius:50%;
+  background:#fff;left:2px;top:2px;transition:all .3s;}
+.tog input:checked+.tog-sl{background:rgba(0,255,136,.25);border-color:rgba(0,255,136,.4);}
+.tog input:checked+.tog-sl:before{transform:translateX(18px);background:var(--g);box-shadow:0 0 7px var(--g);}
+.ban-dur-row{display:flex;gap:8px;align-items:center;}
+.ban-dur-inp{width:90px;padding:9px 12px;background:rgba(0,0,0,.25);
+  border:1px solid rgba(0,255,136,.12);border-radius:10px;color:#fff;
+  font-size:14px;font-family:var(--mono);outline:none;text-align:center;transition:all .3s;}
+.ban-dur-inp:focus{border-color:rgba(0,255,136,.35);}
+.ban-dur-unit{font-size:12px;color:rgba(255,255,255,.4);font-weight:600;}
+.ban-dur-hint{font-size:11px;color:rgba(255,200,0,.55);}
+/* preview box */
+.kick-preview{padding:11px 14px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.07);
+  border-radius:10px;font-size:11px;font-family:var(--mono);color:rgba(255,255,255,.45);
+  line-height:1.8;white-space:pre-wrap;word-break:break-word;min-height:60px;}
+/* ============================================================ */
 </style>
 </head>
 <body>
@@ -470,10 +523,92 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
         </div>
         <!-- ============================================================ -->
 
-      </div>
-    </div>
-  </div>
-</div>
+        <!-- ============================================================
+             AC SETTINGS CARD — NEW
+             ============================================================ -->
+        <div class="card" style="margin-top:14px;">
+          <div class="ch">
+            <div>
+              <div class="ct">⚙️ PENGATURAN ANTI-CHEAT</div>
+              <div class="cs">Konfigurasi ban, kick message, dll — tersimpan di Firebase</div>
+            </div>
+            <div id="setSync" style="font-size:10px;color:rgba(255,255,255,.25);letter-spacing:.5px;">—</div>
+          </div>
+
+          <!-- BAN DURATION -->
+          <div style="margin-bottom:14px;">
+            <div class="set-lbl" style="margin-bottom:8px;">⏳ DURASI BAN</div>
+            <div class="ban-dur-row">
+              <input type="number" id="setBanDays" class="ban-dur-inp" min="0" max="9999" placeholder="60">
+              <span class="ban-dur-unit">hari</span>
+              <span class="ban-dur-hint" id="banDurHint">= 60 hari</span>
+            </div>
+            <div class="set-hint" style="margin-top:5px;">Isi <b style="color:rgba(255,200,0,.7)">0</b> untuk ban permanent. Perubahan langsung berlaku ke semua server.</div>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- TOGGLES -->
+          <div style="margin-bottom:14px;display:flex;flex-direction:column;gap:8px;">
+            <div class="set-lbl" style="margin-bottom:2px;">🔧 OPSI</div>
+
+            <div class="set-toggle-row">
+              <div>
+                <div class="set-toggle-lbl">Teleport sebelum ban</div>
+                <div class="set-toggle-sub">Cheater di-teleport ke server baru dulu, baru di-ban</div>
+              </div>
+              <label class="tog"><input type="checkbox" id="togTeleport" checked><span class="tog-sl"></span></label>
+            </div>
+
+            <div class="set-toggle-row">
+              <div>
+                <div class="set-toggle-lbl">Ban by fingerprint</div>
+                <div class="set-toggle-sub">Juga ban device fingerprint cheater (bypass akun baru)</div>
+              </div>
+              <label class="tog"><input type="checkbox" id="togFingerprint" checked><span class="tog-sl"></span></label>
+            </div>
+
+            <div class="set-toggle-row">
+              <div>
+                <div class="set-toggle-lbl">Log ke Firebase</div>
+                <div class="set-toggle-sub">Simpan log cheater ke Firebase untuk ditampilkan di panel</div>
+              </div>
+              <label class="tog"><input type="checkbox" id="togFirebaseLog" checked><span class="tog-sl"></span></label>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- KICK MESSAGES -->
+          <div class="set-grid">
+            <div class="set-field full">
+              <div class="set-lbl">👢 PESAN KICK (saat terdeteksi copy map)</div>
+              <textarea class="set-textarea" id="setKickMsg" placeholder="Contoh: Kamu ketahuan copy map! Pergi!"></textarea>
+              <div class="set-hint">Kosongkan = pakai pesan default Warpah. Baris baru otomatis ditampilkan.</div>
+            </div>
+
+            <div class="set-field full">
+              <div class="set-lbl">🔨 PESAN BAN (saat player di-ban/kick karena ban)</div>
+              <textarea class="set-textarea" id="setBanMsg" placeholder="Contoh: Akun kamu di-BAN karena copy map!"></textarea>
+              <div class="set-hint">Ditampilkan ke player saat mereka di-kick karena sudah di-ban.</div>
+            </div>
+
+            <div class="set-field full">
+              <div class="set-lbl">🔍 PREVIEW PESAN KICK</div>
+              <div class="kick-preview" id="kickPreview">⛔ ANTI CHEAT COPY MAP
+
+Ilegal Acess!
+Alasan: Copy Map
+Durasi: 60 HARI
+
+🛡️ Protected</div>
+            </div>
+          </div>
+
+          <button class="set-save-btn" id="setSaveBtn" onclick="saveSettings()">💾 SIMPAN PENGATURAN</button>
+          <div class="set-status" id="setStatus"></div>
+        </div>
+        <!-- ============================================================ -->
 
 <!-- CONFIRM MODAL -->
 <div class="mo" id="modal">
@@ -515,6 +650,7 @@ const cmdsRef    = ref(db, 'warpah_commands');
 const connRef    = ref(db, '.info/connected');
 const webhooksRef  = ref(db, 'warpah_webhooks');   // NEW
 const cheaterLogRef = ref(db, 'warpah_cheater_log'); // NEW
+const settingsRef   = ref(db, 'warpah_ac_settings'); // NEW SETTINGS
 
 let mapsData   = {};
 let selectedSet = new Set();
@@ -529,6 +665,7 @@ let expandedKey = null;
 let webhooksData = {};        // key → {label, url}
 let cheatLogEntries = [];     // array of cheater objects, newest first
 let seenCheatKeys = new Set(); // track which Firebase keys we've already seen (avoid re-forwarding)
+let currentSettings = {};     // NEW: cached settings from Firebase
 
 // ============================================================
 // LOGIN
@@ -605,6 +742,14 @@ function initDash() {
     webhooksData = {};
     if (snap.exists()) snap.forEach(c => { webhooksData[c.key] = { _key: c.key, ...c.val() }; });
     renderWebhooks();
+  });
+
+  // NEW: listen settings dari Firebase → isi form
+  onValue(settingsRef, snap => {
+    if (snap.exists()) {
+      currentSettings = snap.val();
+      applySettingsToForm(currentSettings);
+    }
   });
 
   // NEW: listen cheater log — forward notif ke webhook baru
@@ -1066,6 +1211,122 @@ async function sendDiscordWebhook(url, embed) {
     return false;
   }
 }
+
+// ============================================================
+// AC SETTINGS — NEW
+// ============================================================
+
+// Default settings kalau belum ada di Firebase
+const DEFAULT_SETTINGS = {
+  banDays:          60,
+  kickMsg:          '',
+  banMsg:           '',
+  useTeleport:      true,
+  useFingerprint:   true,
+  useFirebaseLog:   true,
+};
+
+function applySettingsToForm(s) {
+  const banDays = s.banDays !== undefined ? s.banDays : DEFAULT_SETTINGS.banDays;
+  document.getElementById('setBanDays').value    = banDays;
+  document.getElementById('setKickMsg').value    = s.kickMsg    || '';
+  document.getElementById('setBanMsg').value     = s.banMsg     || '';
+  document.getElementById('togTeleport').checked    = s.useTeleport    !== false;
+  document.getElementById('togFingerprint').checked = s.useFingerprint !== false;
+  document.getElementById('togFirebaseLog').checked = s.useFirebaseLog !== false;
+  updateBanDurHint(banDays);
+  updateKickPreview();
+  const t = document.getElementById('setSync');
+  t.textContent = '✅ Tersinkron';
+  t.style.color = 'rgba(0,255,136,.5)';
+}
+
+function updateBanDurHint(val) {
+  const n = parseInt(val);
+  const hint = document.getElementById('banDurHint');
+  if (!hint) return;
+  if (isNaN(n) || n === 0) {
+    hint.textContent = '= PERMANENT';
+    hint.style.color = 'rgba(255,60,60,.7)';
+  } else if (n === 1) {
+    hint.textContent = '= 1 hari';
+    hint.style.color = 'rgba(255,200,0,.6)';
+  } else {
+    hint.textContent = '= ' + n + ' hari';
+    hint.style.color = 'rgba(255,200,0,.6)';
+  }
+}
+
+function updateKickPreview() {
+  const kickMsg  = (document.getElementById('setKickMsg')?.value || '').trim();
+  const banDays  = parseInt(document.getElementById('setBanDays')?.value) || 60;
+  const durStr   = banDays === 0 ? 'PERMANENT' : (banDays + ' HARI');
+  const preview  = document.getElementById('kickPreview');
+  if (!preview) return;
+  if (kickMsg) {
+    preview.textContent = kickMsg + '\n\nDurasi: ' + durStr + '\n\n🛡️ Protected';
+  } else {
+    preview.textContent = '⛔ ANTI CHEAT COPY MAP\n\nIlegal Acess!\nAlasan: Copy Map\nDurasi: ' + durStr + '\n\n🛡️ Protected';
+  }
+}
+
+// Event listeners untuk live preview
+document.addEventListener('DOMContentLoaded', () => {
+  ['setBanDays','setKickMsg','setBanMsg'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', () => {
+      if (id === 'setBanDays') updateBanDurHint(el.value);
+      updateKickPreview();
+      const t = document.getElementById('setSync');
+      if (t) { t.textContent = '✏️ Belum disimpan'; t.style.color = 'rgba(255,200,0,.5)'; }
+    });
+  });
+});
+
+window.saveSettings = async () => {
+  const banDaysVal = parseInt(document.getElementById('setBanDays').value);
+  if (isNaN(banDaysVal) || banDaysVal < 0) {
+    toast('⚠️ Durasi ban tidak valid!', 'e'); return;
+  }
+
+  const settings = {
+    banDays:        banDaysVal,
+    kickMsg:        document.getElementById('setKickMsg').value.trim(),
+    banMsg:         document.getElementById('setBanMsg').value.trim(),
+    useTeleport:    document.getElementById('togTeleport').checked,
+    useFingerprint: document.getElementById('togFingerprint').checked,
+    useFirebaseLog: document.getElementById('togFirebaseLog').checked,
+    updatedAt:      Date.now(),
+  };
+
+  const btn = document.getElementById('setSaveBtn');
+  const statusEl = document.getElementById('setStatus');
+  btn.disabled = true;
+  btn.textContent = '⏳ Menyimpan...';
+  statusEl.textContent = '';
+  statusEl.className = 'set-status';
+
+  try {
+    await set(settingsRef, settings);
+    currentSettings = settings;
+    btn.textContent = '✅ Tersimpan!';
+    statusEl.textContent = '✅ Pengaturan berhasil disimpan dan akan aktif di semua server dalam ~10 detik';
+    statusEl.className = 'set-status ok';
+    toast('✅ Pengaturan disimpan!', 's');
+    const t = document.getElementById('setSync');
+    if (t) { t.textContent = '✅ Tersinkron'; t.style.color = 'rgba(0,255,136,.5)'; }
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.textContent = '💾 SIMPAN PENGATURAN';
+    }, 2000);
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = '💾 SIMPAN PENGATURAN';
+    statusEl.textContent = '❌ Gagal simpan: ' + e.message;
+    statusEl.className = 'set-status err';
+    toast('❌ Gagal simpan settings!', 'e');
+  }
+};
 </script>
 </body>
 </html>
