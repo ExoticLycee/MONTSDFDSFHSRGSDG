@@ -597,7 +597,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
               <div class="set-lbl">🔍 PREVIEW PESAN KICK</div>
               <div class="kick-preview" id="kickPreview">⛔ ANTI CHEAT COPY MAP
 
-Ilegal Access!
+Ilegal Acess!
 Alasan: Copy Map
 Durasi: 60 HARI
 
@@ -1051,7 +1051,8 @@ window.addWebhook = async () => {
   const label = labelInp.value.trim() || 'Webhook';
   const url   = urlInp.value.trim();
 
-  if (!url || !url.startsWith('https://discord.com/api/webhooks/')) {
+  const validWh = url.includes('/api/webhooks/') && (url.startsWith('https://discord.com') || url.startsWith('https://discordapp.com') || url.startsWith('https://ptb.discord.com') || url.startsWith('https://canary.discord.com'));
+  if (!url || !validWh) {
     toast('⚠️ URL webhook tidak valid!', 'e'); return;
   }
 
@@ -1085,7 +1086,7 @@ window.testWebhook = async (key) => {
   if (btn) { btn.textContent = '...'; btn.disabled = true; }
 
   const success = await sendDiscordWebhook(wh.url, {
-    title: '🔔 Test Webhook — Warpah AntiCheat CopyMap',
+    title: '🔔 Test Webhook — Warpah AC Panel',
     color: 0x00FF88,
     description: 'Webhook berhasil terhubung ke panel! Notif cheater akan dikirim ke sini.',
     fields: [
@@ -1189,7 +1190,7 @@ async function forwardToWebhooks(cheater) {
       { name: '⏳ Durasi Ban',    value: banType, inline: true },
       { name: '🕐 Waktu',         value: cheater.time ? new Date(cheater.time).toLocaleString('id-ID') : '?', inline: false }
     ],
-    footer: { text: '🛡️ Anti Cheat Copy Map by Warpah' },
+    footer: { text: '🛡️ Anti Cheat Copy Map by Warpah — via Panel' },
     timestamp: new Date().toISOString()
   };
 
