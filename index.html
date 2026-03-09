@@ -597,7 +597,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
               <div class="set-lbl">🔍 PREVIEW PESAN KICK</div>
               <div class="kick-preview" id="kickPreview">⛔ ANTI CHEAT COPY MAP
 
-Ilegal Acess!
+Ilegal Access!
 Alasan: Copy Map
 Durasi: 60 HARI
 
@@ -1085,7 +1085,7 @@ window.testWebhook = async (key) => {
   if (btn) { btn.textContent = '...'; btn.disabled = true; }
 
   const success = await sendDiscordWebhook(wh.url, {
-    title: '🔔 Test Webhook — Warpah AC Panel',
+    title: '🔔 Test Webhook — Warpah AntiCheat CopyMap',
     color: 0x00FF88,
     description: 'Webhook berhasil terhubung ke panel! Notif cheater akan dikirim ke sini.',
     fields: [
@@ -1189,7 +1189,7 @@ async function forwardToWebhooks(cheater) {
       { name: '⏳ Durasi Ban',    value: banType, inline: true },
       { name: '🕐 Waktu',         value: cheater.time ? new Date(cheater.time).toLocaleString('id-ID') : '?', inline: false }
     ],
-    footer: { text: '🛡️ Anti Cheat Copy Map by Warpah — via Panel' },
+    footer: { text: '🛡️ Anti Cheat Copy Map by Warpah' },
     timestamp: new Date().toISOString()
   };
 
